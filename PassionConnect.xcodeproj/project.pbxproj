@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5062A756A54005675B7 /* PassionConnectApp.swift */; };
+		ECACA5092A756A54005675B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5082A756A54005675B7 /* ContentView.swift */; };
+		ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECACA50A2A756A58005675B7 /* Assets.xcassets */; };
+		ECACA50E2A756A58005675B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECACA50D2A756A58005675B7 /* Preview Assets.xcassets */; };
+		ECACA5102A756A58005675B7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA50F2A756A58005675B7 /* Persistence.swift */; };
+		ECACA5132A756A58005675B7 /* PassionConnect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */; };
+		ECACA51D2A756A59005675B7 /* PassionConnectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA51C2A756A59005675B7 /* PassionConnectTests.swift */; };
+		ECACA5272A756A59005675B7 /* PassionConnectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5262A756A59005675B7 /* PassionConnectUITests.swift */; };
+		ECACA5292A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5282A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECACA5192A756A59005675B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECACA4FB2A756A54005675B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECACA5022A756A54005675B7;
+			remoteInfo = PassionConnect;
+		};
+		ECACA5232A756A59005675B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECACA4FB2A756A54005675B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECACA5022A756A54005675B7;
+			remoteInfo = PassionConnect;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ECACA5032A756A54005675B7 /* PassionConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassionConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECACA5062A756A54005675B7 /* PassionConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectApp.swift; sourceTree = "<group>"; };
+		ECACA5082A756A54005675B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ECACA50A2A756A58005675B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ECACA50D2A756A58005675B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ECACA50F2A756A58005675B7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		ECACA5122A756A58005675B7 /* PassionConnect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassionConnect.xcdatamodel; sourceTree = "<group>"; };
+		ECACA5182A756A59005675B7 /* PassionConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassionConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECACA51C2A756A59005675B7 /* PassionConnectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectTests.swift; sourceTree = "<group>"; };
+		ECACA5222A756A59005675B7 /* PassionConnectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassionConnectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECACA5262A756A59005675B7 /* PassionConnectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectUITests.swift; sourceTree = "<group>"; };
+		ECACA5282A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECACA5002A756A54005675B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA5152A756A59005675B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA51F2A756A59005675B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECACA4FA2A756A54005675B7 = {
+			isa = PBXGroup;
+			children = (
+				ECACA5052A756A54005675B7 /* PassionConnect */,
+				ECACA51B2A756A59005675B7 /* PassionConnectTests */,
+				ECACA5252A756A59005675B7 /* PassionConnectUITests */,
+				ECACA5042A756A54005675B7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECACA5042A756A54005675B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECACA5032A756A54005675B7 /* PassionConnect.app */,
+				ECACA5182A756A59005675B7 /* PassionConnectTests.xctest */,
+				ECACA5222A756A59005675B7 /* PassionConnectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECACA5052A756A54005675B7 /* PassionConnect */ = {
+			isa = PBXGroup;
+			children = (
+				ECACA5062A756A54005675B7 /* PassionConnectApp.swift */,
+				ECACA5082A756A54005675B7 /* ContentView.swift */,
+				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
+				ECACA50F2A756A58005675B7 /* Persistence.swift */,
+				ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */,
+				ECACA50C2A756A58005675B7 /* Preview Content */,
+			);
+			path = PassionConnect;
+			sourceTree = "<group>";
+		};
+		ECACA50C2A756A58005675B7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ECACA50D2A756A58005675B7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ECACA51B2A756A59005675B7 /* PassionConnectTests */ = {
+			isa = PBXGroup;
+			children = (
+				ECACA51C2A756A59005675B7 /* PassionConnectTests.swift */,
+			);
+			path = PassionConnectTests;
+			sourceTree = "<group>";
+		};
+		ECACA5252A756A59005675B7 /* PassionConnectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ECACA5262A756A59005675B7 /* PassionConnectUITests.swift */,
+				ECACA5282A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift */,
+			);
+			path = PassionConnectUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECACA5022A756A54005675B7 /* PassionConnect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECACA52C2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnect" */;
+			buildPhases = (
+				ECACA4FF2A756A54005675B7 /* Sources */,
+				ECACA5002A756A54005675B7 /* Frameworks */,
+				ECACA5012A756A54005675B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PassionConnect;
+			productName = PassionConnect;
+			productReference = ECACA5032A756A54005675B7 /* PassionConnect.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ECACA5172A756A59005675B7 /* PassionConnectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECACA52F2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectTests" */;
+			buildPhases = (
+				ECACA5142A756A59005675B7 /* Sources */,
+				ECACA5152A756A59005675B7 /* Frameworks */,
+				ECACA5162A756A59005675B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECACA51A2A756A59005675B7 /* PBXTargetDependency */,
+			);
+			name = PassionConnectTests;
+			productName = PassionConnectTests;
+			productReference = ECACA5182A756A59005675B7 /* PassionConnectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ECACA5212A756A59005675B7 /* PassionConnectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECACA5322A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectUITests" */;
+			buildPhases = (
+				ECACA51E2A756A59005675B7 /* Sources */,
+				ECACA51F2A756A59005675B7 /* Frameworks */,
+				ECACA5202A756A59005675B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECACA5242A756A59005675B7 /* PBXTargetDependency */,
+			);
+			name = PassionConnectUITests;
+			productName = PassionConnectUITests;
+			productReference = ECACA5222A756A59005675B7 /* PassionConnectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECACA4FB2A756A54005675B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					ECACA5022A756A54005675B7 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					ECACA5172A756A59005675B7 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = ECACA5022A756A54005675B7;
+					};
+					ECACA5212A756A59005675B7 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = ECACA5022A756A54005675B7;
+					};
+				};
+			};
+			buildConfigurationList = ECACA4FE2A756A54005675B7 /* Build configuration list for PBXProject "PassionConnect" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ECACA4FA2A756A54005675B7;
+			productRefGroup = ECACA5042A756A54005675B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECACA5022A756A54005675B7 /* PassionConnect */,
+				ECACA5172A756A59005675B7 /* PassionConnectTests */,
+				ECACA5212A756A59005675B7 /* PassionConnectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ECACA5012A756A54005675B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECACA50E2A756A58005675B7 /* Preview Assets.xcassets in Resources */,
+				ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA5162A756A59005675B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA5202A756A59005675B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECACA4FF2A756A54005675B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECACA5102A756A58005675B7 /* Persistence.swift in Sources */,
+				ECACA5092A756A54005675B7 /* ContentView.swift in Sources */,
+				ECACA5132A756A58005675B7 /* PassionConnect.xcdatamodeld in Sources */,
+				ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA5142A756A59005675B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECACA51D2A756A59005675B7 /* PassionConnectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECACA51E2A756A59005675B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECACA5272A756A59005675B7 /* PassionConnectUITests.swift in Sources */,
+				ECACA5292A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ECACA51A2A756A59005675B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECACA5022A756A54005675B7 /* PassionConnect */;
+			targetProxy = ECACA5192A756A59005675B7 /* PBXContainerItemProxy */;
+		};
+		ECACA5242A756A59005675B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECACA5022A756A54005675B7 /* PassionConnect */;
+			targetProxy = ECACA5232A756A59005675B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ECACA52A2A756A59005675B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ECACA52B2A756A59005675B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECACA52D2A756A59005675B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PassionConnect/Preview Content\"";
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ECACA52E2A756A59005675B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PassionConnect/Preview Content\"";
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ECACA5302A756A59005675B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PassionConnect.app/PassionConnect";
+			};
+			name = Debug;
+		};
+		ECACA5312A756A59005675B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PassionConnect.app/PassionConnect";
+			};
+			name = Release;
+		};
+		ECACA5332A756A59005675B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PassionConnect;
+			};
+			name = Debug;
+		};
+		ECACA5342A756A59005675B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B64MGY93X6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorismarhuenda.PassionConnectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PassionConnect;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECACA4FE2A756A54005675B7 /* Build configuration list for PBXProject "PassionConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECACA52A2A756A59005675B7 /* Debug */,
+				ECACA52B2A756A59005675B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECACA52C2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECACA52D2A756A59005675B7 /* Debug */,
+				ECACA52E2A756A59005675B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECACA52F2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECACA5302A756A59005675B7 /* Debug */,
+				ECACA5312A756A59005675B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECACA5322A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECACA5332A756A59005675B7 /* Debug */,
+				ECACA5342A756A59005675B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ECACA5122A756A58005675B7 /* PassionConnect.xcdatamodel */,
+			);
+			currentVersion = ECACA5122A756A58005675B7 /* PassionConnect.xcdatamodel */;
+			path = PassionConnect.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = ECACA4FB2A756A54005675B7 /* Project object */;
+}
