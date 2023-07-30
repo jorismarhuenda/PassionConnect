@@ -16,6 +16,14 @@
 		ECACA51D2A756A59005675B7 /* PassionConnectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA51C2A756A59005675B7 /* PassionConnectTests.swift */; };
 		ECACA5272A756A59005675B7 /* PassionConnectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5262A756A59005675B7 /* PassionConnectUITests.swift */; };
 		ECACA5292A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5282A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift */; };
+		ECACA5362A756B3C005675B7 /* UserInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5352A756B3C005675B7 /* UserInterestsView.swift */; };
+		ECACA5382A756C2F005675B7 /* InterestMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5372A756C2F005675B7 /* InterestMatchView.swift */; };
+		ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5392A756C63005675B7 /* ChatView.swift */; };
+		ECACA53C2A7670AC005675B7 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */; };
+		ECACA53E2A7672AE005675B7 /* MatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA53D2A7672AE005675B7 /* MatchesView.swift */; };
+		ECACA5402A767662005675B7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA53F2A767662005675B7 /* ProfileView.swift */; };
+		ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5412A768ED5005675B7 /* SettingsView.swift */; };
+		ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5432A7692B9005675B7 /* ConversationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +56,14 @@
 		ECACA5222A756A59005675B7 /* PassionConnectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassionConnectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECACA5262A756A59005675B7 /* PassionConnectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectUITests.swift; sourceTree = "<group>"; };
 		ECACA5282A756A59005675B7 /* PassionConnectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ECACA5352A756B3C005675B7 /* UserInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterestsView.swift; sourceTree = "<group>"; };
+		ECACA5372A756C2F005675B7 /* InterestMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestMatchView.swift; sourceTree = "<group>"; };
+		ECACA5392A756C63005675B7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
+		ECACA53D2A7672AE005675B7 /* MatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesView.swift; sourceTree = "<group>"; };
+		ECACA53F2A767662005675B7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		ECACA5412A768ED5005675B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		ECACA5432A7692B9005675B7 /* ConversationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +114,16 @@
 		ECACA5052A756A54005675B7 /* PassionConnect */ = {
 			isa = PBXGroup;
 			children = (
-				ECACA5062A756A54005675B7 /* PassionConnectApp.swift */,
+				ECACA5352A756B3C005675B7 /* UserInterestsView.swift */,
+				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
+				ECACA5392A756C63005675B7 /* ChatView.swift */,
+				ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */,
+				ECACA53D2A7672AE005675B7 /* MatchesView.swift */,
+				ECACA53F2A767662005675B7 /* ProfileView.swift */,
+				ECACA5412A768ED5005675B7 /* SettingsView.swift */,
+				ECACA5432A7692B9005675B7 /* ConversationsView.swift */,
 				ECACA5082A756A54005675B7 /* ContentView.swift */,
+				ECACA5062A756A54005675B7 /* PassionConnectApp.swift */,
 				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
 				ECACA50F2A756A58005675B7 /* Persistence.swift */,
 				ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */,
@@ -265,8 +289,16 @@
 			files = (
 				ECACA5102A756A58005675B7 /* Persistence.swift in Sources */,
 				ECACA5092A756A54005675B7 /* ContentView.swift in Sources */,
+				ECACA5402A767662005675B7 /* ProfileView.swift in Sources */,
+				ECACA5362A756B3C005675B7 /* UserInterestsView.swift in Sources */,
 				ECACA5132A756A58005675B7 /* PassionConnect.xcdatamodeld in Sources */,
+				ECACA53E2A7672AE005675B7 /* MatchesView.swift in Sources */,
+				ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */,
+				ECACA53C2A7670AC005675B7 /* ChatDetailView.swift in Sources */,
+				ECACA5382A756C2F005675B7 /* InterestMatchView.swift in Sources */,
 				ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */,
+				ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */,
+				ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
