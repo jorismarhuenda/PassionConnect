@@ -24,6 +24,12 @@
 		ECACA5402A767662005675B7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA53F2A767662005675B7 /* ProfileView.swift */; };
 		ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5412A768ED5005675B7 /* SettingsView.swift */; };
 		ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5432A7692B9005675B7 /* ConversationsView.swift */; };
+		ECACA5462A76FF51005675B7 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5452A76FF51005675B7 /* DiscoverView.swift */; };
+		ECACA5482A77024F005675B7 /* FacebookLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5472A77024F005675B7 /* FacebookLoginView.swift */; };
+		ECACA54A2A770294005675B7 /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5492A770294005675B7 /* EmailLoginView.swift */; };
+		ECACA54C2A7704A4005675B7 /* CHatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54B2A7704A4005675B7 /* CHatListView.swift */; };
+		ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54D2A770908005675B7 /* MatchDetailView.swift */; };
+		ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54F2A770A9B005675B7 /* UserProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +70,12 @@
 		ECACA53F2A767662005675B7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		ECACA5412A768ED5005675B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ECACA5432A7692B9005675B7 /* ConversationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsView.swift; sourceTree = "<group>"; };
+		ECACA5452A76FF51005675B7 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		ECACA5472A77024F005675B7 /* FacebookLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginView.swift; sourceTree = "<group>"; };
+		ECACA5492A770294005675B7 /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
+		ECACA54B2A7704A4005675B7 /* CHatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHatListView.swift; sourceTree = "<group>"; };
+		ECACA54D2A770908005675B7 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
+		ECACA54F2A770A9B005675B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,13 +127,19 @@
 			isa = PBXGroup;
 			children = (
 				ECACA5352A756B3C005675B7 /* UserInterestsView.swift */,
+				ECACA54F2A770A9B005675B7 /* UserProfileView.swift */,
 				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
 				ECACA5392A756C63005675B7 /* ChatView.swift */,
 				ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */,
+				ECACA54B2A7704A4005675B7 /* CHatListView.swift */,
 				ECACA53D2A7672AE005675B7 /* MatchesView.swift */,
+				ECACA54D2A770908005675B7 /* MatchDetailView.swift */,
 				ECACA53F2A767662005675B7 /* ProfileView.swift */,
 				ECACA5412A768ED5005675B7 /* SettingsView.swift */,
 				ECACA5432A7692B9005675B7 /* ConversationsView.swift */,
+				ECACA5452A76FF51005675B7 /* DiscoverView.swift */,
+				ECACA5472A77024F005675B7 /* FacebookLoginView.swift */,
+				ECACA5492A770294005675B7 /* EmailLoginView.swift */,
 				ECACA5082A756A54005675B7 /* ContentView.swift */,
 				ECACA5062A756A54005675B7 /* PassionConnectApp.swift */,
 				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
@@ -287,17 +305,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECACA5462A76FF51005675B7 /* DiscoverView.swift in Sources */,
+				ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */,
 				ECACA5102A756A58005675B7 /* Persistence.swift in Sources */,
 				ECACA5092A756A54005675B7 /* ContentView.swift in Sources */,
 				ECACA5402A767662005675B7 /* ProfileView.swift in Sources */,
+				ECACA54C2A7704A4005675B7 /* CHatListView.swift in Sources */,
 				ECACA5362A756B3C005675B7 /* UserInterestsView.swift in Sources */,
 				ECACA5132A756A58005675B7 /* PassionConnect.xcdatamodeld in Sources */,
+				ECACA5482A77024F005675B7 /* FacebookLoginView.swift in Sources */,
 				ECACA53E2A7672AE005675B7 /* MatchesView.swift in Sources */,
 				ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */,
+				ECACA54A2A770294005675B7 /* EmailLoginView.swift in Sources */,
 				ECACA53C2A7670AC005675B7 /* ChatDetailView.swift in Sources */,
 				ECACA5382A756C2F005675B7 /* InterestMatchView.swift in Sources */,
 				ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */,
 				ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */,
+				ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */,
 				ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

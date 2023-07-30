@@ -80,6 +80,170 @@ class FirestoreViewModel: ObservableObject {
         subscribeToConversationsChanges()
     }
     
+    func unmatchUser(_ match: Match) {
+            guard let currentUserID = currentUser.id else {
+                return
+            }
+            
+            // Supprimer l'utilisateur de la liste des correspondants aimés par l'utilisateur actuel
+            likedUserIDs.remove(match.userID)
+            updateLikedUserIDs(for: currentUserID) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour des correspondants aimés : \(error.localizedDescription)")
+                }
+            }
+        // Supprimer l'utilisateur actuel de la liste des correspondants aimés par le correspondant
+                if let matchedUserID = match.userID {
+                    var matchedUser = potentialMatches.first { $0.userID == matchedUserID }
+                    matchedUser?.likedUserIDs.remove(currentUserID)
+                    if let updatedMatchedUser = matchedUser {
+                        updateLikedUserIDs(for: matchedUserID) { error in
+                            if let error = error {
+                                print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+                
+                // Mettre à jour la liste des correspondants potentiels après la suppression
+                loadPotentialMatches()
+            }
+    
+    func deleteConversation(_ conversationID: String) {
+            guard let currentUserID = currentUser.id else {
+                return
+            }
+            
+            Firestore.firestore().collection("conversations").document(conversationID).delete { error in
+                if let error = error {
+                    print("Erreur lors de la suppression de la conversation : \(error.localizedDescription)")
+                } else {
+                    // Supprimer la conversation de la liste des conversations de l'utilisateur
+                    if let index = conversations.firstIndex(where: { $0.id == conversationID }) {
+                        conversations.remove(at: index)
+                    }
+                }
+            }
+            
+            // Mettre à jour la liste des conversations de l'utilisateur dans Firestore
+            updateConversations(for: currentUserID) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour des conversations : \(error.localizedDescription)")
+                }
+            }
+        }
+    
+    func createConversation(with match: Match, completion: @escaping (Result<Conversation, Error>) -> Void) {
+            guard let currentUserID = Auth.auth().currentUser?.uid else {
+                let error = NSError(domain: "FirestoreViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "ID de l'utilisateur actuel manquant"])
+                completion(.failure(error))
+                return
+            }
+
+            let conversationRef = db.collection("conversations").document()
+
+            let participants: [String] = [currentUserID, match.userID]
+            let newConversation = Conversation(id: conversationRef.documentID, userIDs: participants)
+
+            conversationRef.setData(newConversation.toDictionary()) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(newConversation))
+                }
+            }
+        }
+    
+    func likeMatch(_ match: Match, completion: @escaping (Error?) -> Void) {
+            guard let currentUserID = Auth.auth().currentUser?.uid else {
+                print("Erreur : impossible de liker le correspondant, l'ID de l'utilisateur actuel est manquant.")
+                return
+            }
+            
+            let likesRef = db.collection("likes")
+            
+            let likeData: [String: Any] = [
+                "userID": currentUserID,
+                "likedUserID": match.userID,
+                "timestamp": FieldValue.serverTimestamp()
+            ]
+            
+            likesRef.addDocument(data: likeData) { error in
+                if let error = error {
+                    completion(error)
+                } else {
+                    self.potentialMatches.removeAll { $0.userID == match.userID }
+                    completion(nil)
+                }
+            }
+        }
+    
+    func searchMatches(preferredAge: Int, maximumDistance: Int, interests: [String], completion: @escaping ([Match]) -> Void) {
+            let query = Firestore.firestore().collection("users")
+                .whereField("age", isGreaterThanOrEqualTo: preferredAge)
+                .whereField("age", isLessThanOrEqualTo: preferredAge + 5) // On peut ajuster cette plage d'âge selon les préférences
+                .whereField("distance", isLessThanOrEqualTo: maximumDistance)
+                .whereField("interests", arrayContainsAny: interests)
+            
+            query.getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Erreur lors de la recherche de correspondances : \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
+                var matches: [Match] = []
+                for document in querySnapshot!.documents {
+                    do {
+                        if let user = try document.data(as: User.self) {
+                            if user.id != currentUser.id && !likedUserIDs.contains(user.id!) {
+                                let match = Match(userID: user.id!, userName: user.name, age: user.age, commonInterests: Array(Set(user.interests).intersection(interests)))
+                                matches.append(match)
+                            }
+                        }
+                    } catch {
+                                        print("Erreur lors de la conversion des données : \(error.localizedDescription)")
+                                    }
+                                }
+                                
+                                completion(matches)
+                            }
+                        }
+    
+    func loadPotentialMatches() {
+            guard let currentUserID = Auth.auth().currentUser?.uid else {
+                print("Erreur : impossible de charger les correspondants potentiels, l'ID de l'utilisateur actuel est manquant.")
+                return
+            }
+            
+            let potentialMatchesRef = db.collection("potentialMatches").document(currentUserID).collection("matches")
+            
+            potentialMatchesRef.getDocuments { snapshot, error in
+                if let error = error {
+                    print("Erreur lors du chargement des correspondants potentiels : \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("Aucun correspondant potentiel trouvé.")
+                    return
+                }
+                let potentialMatches = documents.compactMap { document -> Match? in
+                                do {
+                                    let match = try document.data(as: Match.self)
+                                    return match
+                                } catch {
+                                    print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
+                                    return nil
+                                }
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.potentialMatches = potentialMatches
+                            }
+                        }
+                    }
+    
     func loadCurrentUser() {
             guard let currentUserID = Auth.auth().currentUser?.uid else {
                 print("Erreur : impossible de charger l'utilisateur actuel, l'ID de l'utilisateur actuel est manquant.")
@@ -132,6 +296,49 @@ class FirestoreViewModel: ObservableObject {
                 }
             }
         }
+    
+    func findRandomMatch(completion: @escaping (Match?) -> Void) {
+            guard let currentUserID = currentUser.id else {
+                completion(nil)
+                return
+            }
+            
+            // Vérifie si l'utilisateur a déjà aimé tous les correspondants potentiels
+            if likedUserIDs.count == potentialMatches.count {
+                completion(nil)
+                return
+            }
+            
+            // Filtrer les correspondants potentiels pour obtenir ceux qui n'ont pas encore été aimés
+            let unmatchedMatches = potentialMatches.filter { !likedUserIDs.contains($0.userID) }
+            
+            // Sélectionner un correspondant aléatoire parmi les correspondants potentiels non aimés
+            let randomIndex = Int.random(in: 0..<unmatchedMatches.count)
+            let randomMatch = unmatchedMatches[randomIndex]
+            // Mettre à jour la liste des correspondants aimés par l'utilisateur actuel
+                likedUserIDs.insert(randomMatch.userID)
+                updateLikedUserIDs(for: currentUserID) { error in
+                    if let error = error {
+                        print("Erreur lors de la mise à jour des correspondants aimés : \(error.localizedDescription)")
+                    }
+                }
+                
+                // Mettre à jour les correspondants aimés par le correspondant sélectionné
+                if let matchedUserID = randomMatch.userID {
+                    var matchedUser = potentialMatches.first { $0.userID == matchedUserID }
+                    matchedUser?.likedUserIDs.insert(currentUserID)
+                    if let updatedMatchedUser = matchedUser {
+                        updateLikedUserIDs(for: matchedUserID) { error in
+                            if let error = error {
+                                print("Erreur lors de la mise à jour des correspondants aimés du correspondant sélectionné : \(error.localizedDescription)")
+                            }
+                        }
+                        completion(updatedMatchedUser)
+                    }
+                }
+                
+                completion(randomMatch)
+            }
     
     func loadMatches() {
             guard let currentUserID = Auth.auth().currentUser?.uid else {
