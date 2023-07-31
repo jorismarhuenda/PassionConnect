@@ -1,0 +1,6 @@
+framework module Pods_PassionConnect {
+  umbrella header "Pods-PassionConnect-umbrella.h"
+
+  export *
+  module * { export * }
+}

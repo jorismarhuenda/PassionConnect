@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CE1575C9E263B7C4C2BAB12 /* Pods_PassionConnectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE10B72174209EB52BD9717 /* Pods_PassionConnectTests.framework */; };
+		D67419354010D3B889D92919 /* Pods_PassionConnect_PassionConnectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3A3621279E9E4C9E6B1A1A /* Pods_PassionConnect_PassionConnectUITests.framework */; };
+		EACA5E2FAAB99EEB1EE39901 /* Pods_PassionConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 741CB1F0708297F70CE2A67D /* Pods_PassionConnect.framework */; };
 		ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5062A756A54005675B7 /* PassionConnectApp.swift */; };
 		ECACA5092A756A54005675B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5082A756A54005675B7 /* ContentView.swift */; };
 		ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECACA50A2A756A58005675B7 /* Assets.xcassets */; };
@@ -50,6 +53,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E3A3621279E9E4C9E6B1A1A /* Pods_PassionConnect_PassionConnectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassionConnect_PassionConnectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51160C5E7E488C8385EC0EF8 /* Pods-PassionConnect-PassionConnectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect-PassionConnectUITests.debug.xcconfig"; path = "Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		523E95AA3661C619D7193550 /* Pods-PassionConnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect.debug.xcconfig"; path = "Target Support Files/Pods-PassionConnect/Pods-PassionConnect.debug.xcconfig"; sourceTree = "<group>"; };
+		741CB1F0708297F70CE2A67D /* Pods_PassionConnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassionConnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87B8583E11A236E1AB86FE2A /* Pods-PassionConnectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.debug.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BBE10B72174209EB52BD9717 /* Pods_PassionConnectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassionConnectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9BCE71787A085088137EBCD /* Pods-PassionConnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect.release.xcconfig"; path = "Target Support Files/Pods-PassionConnect/Pods-PassionConnect.release.xcconfig"; sourceTree = "<group>"; };
+		DE77678AA50ED0FAC27A83C6 /* Pods-PassionConnect-PassionConnectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect-PassionConnectUITests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ECACA5032A756A54005675B7 /* PassionConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassionConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECACA5062A756A54005675B7 /* PassionConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectApp.swift; sourceTree = "<group>"; };
 		ECACA5082A756A54005675B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +87,7 @@
 		ECACA54B2A7704A4005675B7 /* CHatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHatListView.swift; sourceTree = "<group>"; };
 		ECACA54D2A770908005675B7 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		ECACA54F2A770A9B005675B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EACA5E2FAAB99EEB1EE39901 /* Pods_PassionConnect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CE1575C9E263B7C4C2BAB12 /* Pods_PassionConnectTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,12 +111,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D67419354010D3B889D92919 /* Pods_PassionConnect_PassionConnectUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		673B3AFCEC1EDEC20C9C74AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				523E95AA3661C619D7193550 /* Pods-PassionConnect.debug.xcconfig */,
+				C9BCE71787A085088137EBCD /* Pods-PassionConnect.release.xcconfig */,
+				51160C5E7E488C8385EC0EF8 /* Pods-PassionConnect-PassionConnectUITests.debug.xcconfig */,
+				DE77678AA50ED0FAC27A83C6 /* Pods-PassionConnect-PassionConnectUITests.release.xcconfig */,
+				87B8583E11A236E1AB86FE2A /* Pods-PassionConnectTests.debug.xcconfig */,
+				FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E11F568BCD6B62049F18D18A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				741CB1F0708297F70CE2A67D /* Pods_PassionConnect.framework */,
+				3E3A3621279E9E4C9E6B1A1A /* Pods_PassionConnect_PassionConnectUITests.framework */,
+				BBE10B72174209EB52BD9717 /* Pods_PassionConnectTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ECACA4FA2A756A54005675B7 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +149,8 @@
 				ECACA51B2A756A59005675B7 /* PassionConnectTests */,
 				ECACA5252A756A59005675B7 /* PassionConnectUITests */,
 				ECACA5042A756A54005675B7 /* Products */,
+				673B3AFCEC1EDEC20C9C74AE /* Pods */,
+				E11F568BCD6B62049F18D18A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,9 +223,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECACA52C2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnect" */;
 			buildPhases = (
+				A73D7700ECE62B43E2CBC335 /* [CP] Check Pods Manifest.lock */,
 				ECACA4FF2A756A54005675B7 /* Sources */,
 				ECACA5002A756A54005675B7 /* Frameworks */,
 				ECACA5012A756A54005675B7 /* Resources */,
+				4810D2A2DA891019D81E53C9 /* [CP] Embed Pods Frameworks */,
+				459909D0596D189C7CE60310 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,6 +243,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECACA52F2A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectTests" */;
 			buildPhases = (
+				225A3B19C697EFD1E94C46CC /* [CP] Check Pods Manifest.lock */,
 				ECACA5142A756A59005675B7 /* Sources */,
 				ECACA5152A756A59005675B7 /* Frameworks */,
 				ECACA5162A756A59005675B7 /* Resources */,
@@ -217,9 +262,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECACA5322A756A59005675B7 /* Build configuration list for PBXNativeTarget "PassionConnectUITests" */;
 			buildPhases = (
+				C12163359E6463D144273AEA /* [CP] Check Pods Manifest.lock */,
 				ECACA51E2A756A59005675B7 /* Sources */,
 				ECACA51F2A756A59005675B7 /* Frameworks */,
 				ECACA5202A756A59005675B7 /* Resources */,
+				EF0636E6EF11E037470DB259 /* [CP] Embed Pods Frameworks */,
+				AEEB9E4EAF60107CA1AAEB2C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -299,6 +347,143 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		225A3B19C697EFD1E94C46CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassionConnectTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		459909D0596D189C7CE60310 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4810D2A2DA891019D81E53C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A73D7700ECE62B43E2CBC335 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassionConnect-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEEB9E4EAF60107CA1AAEB2C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C12163359E6463D144273AEA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassionConnect-PassionConnectUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF0636E6EF11E037470DB259 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ECACA4FF2A756A54005675B7 /* Sources */ = {
@@ -475,6 +660,7 @@
 		};
 		ECACA52D2A756A59005675B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 523E95AA3661C619D7193550 /* Pods-PassionConnect.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -504,6 +690,7 @@
 		};
 		ECACA52E2A756A59005675B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9BCE71787A085088137EBCD /* Pods-PassionConnect.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -533,6 +720,7 @@
 		};
 		ECACA5302A756A59005675B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87B8583E11A236E1AB86FE2A /* Pods-PassionConnectTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -553,6 +741,7 @@
 		};
 		ECACA5312A756A59005675B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -573,6 +762,7 @@
 		};
 		ECACA5332A756A59005675B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51160C5E7E488C8385EC0EF8 /* Pods-PassionConnect-PassionConnectUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -591,6 +781,7 @@
 		};
 		ECACA5342A756A59005675B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE77678AA50ED0FAC27A83C6 /* Pods-PassionConnect-PassionConnectUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
