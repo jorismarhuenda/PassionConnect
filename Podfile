@@ -5,14 +5,11 @@ target 'PassionConnect' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+pod 'Firebase'
 pod 'Google-Mobile-Ads-SDK'
-pod 'FirebaseAnalytics'
-pod 'FirebaseAppDistribution'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
-pod 'FirebaseMessaging'
 pod 'FirebaseStorage'
-pod 'FirebaseInAppMessaging'
 pod 'FirebaseDatabase'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'

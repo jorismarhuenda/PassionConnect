@@ -9,12 +9,21 @@ import SwiftUI
 
 struct UserProfileView: View {
     @ObservedObject var viewModel: FirestoreViewModel
-    @State private var name: String
-    @State private var age: Int
-    @State private var interests: [String]
-    @State private var description: String
-    
-    var body: some View {
+        @State private var name: String
+        @State private var age: Int
+        @State private var interests: [String]
+        @State private var description: String
+        
+        init(viewModel: FirestoreViewModel) {
+            self.viewModel = viewModel
+            // Initialize the State variables here
+            _name = State(initialValue: viewModel.currentUser.name)
+            _age = State(initialValue: viewModel.currentUser.age)
+            _interests = State(initialValue: viewModel.currentUser.interests)
+            _description = State(initialValue: viewModel.currentUser.description)
+        }
+        
+        var body: some View {
         Form {
             Section(header: Text("Informations personnelles")) {
                 TextField("Nom", text: $name)

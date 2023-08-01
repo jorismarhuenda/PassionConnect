@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 import UserNotifications
 
 struct User: Identifiable, Codable {
@@ -40,12 +39,27 @@ struct ChatMessage: Identifiable, Codable {
 
 struct Conversation: Identifiable {
     var id = UUID()
-    var user: User
+    var displayName: String // Nom à afficher pour la conversation
+    var user: User // Utilisateur avec lequel la conversation a lieu
     var messages: [ChatMessage]
     var isTyping: Bool // Indique si l'utilisateur est en train de taper un message
     var quickReplies: [String] // Les réponses rapides pour cette conversation
     var isUnread: Bool // Indique si la conversation est marquée comme "non lue"
+    var lastMessageText: String // Le texte du dernier message dans la conversation
+    
+    init(displayName: String, user: User, messages: [ChatMessage], isTyping: Bool, quickReplies: [String], isUnread: Bool) {
+        self.displayName = displayName
+        self.user = user
+        self.messages = messages
+        self.isTyping = isTyping
+        self.quickReplies = quickReplies
+        self.isUnread = isUnread
+        
+        // Get the last message text from messages
+        self.lastMessageText = messages.last?.text ?? "Aucun message"
+    }
 }
+
 
 class MessagingDelegate: NSObject, MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>365630040608-pb4ub7c17lieka3fs1jmkbf8sqnu1oh4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.365630040608-pb4ub7c17lieka3fs1jmkbf8sqnu1oh4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAp6kwsPVbo28iXDLlK289x690EQSmXwEU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>365630040608</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jorismarhuenda.PassionConnect</string>
+	<key>PROJECT_ID</key>
+	<string>passionconnect-1066b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>passionconnect-1066b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:365630040608:ios:12a73b4bfcd6dc2bd52a45</string>
+</dict>
+</plist>

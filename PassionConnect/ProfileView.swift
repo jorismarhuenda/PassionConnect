@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 struct ProfileView: View {
     @ObservedObject var viewModel: FirestoreViewModel

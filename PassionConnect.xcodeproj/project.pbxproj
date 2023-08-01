@@ -33,6 +33,7 @@
 		ECACA54C2A7704A4005675B7 /* CHatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54B2A7704A4005675B7 /* CHatListView.swift */; };
 		ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54D2A770908005675B7 /* MatchDetailView.swift */; };
 		ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54F2A770A9B005675B7 /* UserProfileView.swift */; };
+		ECACA5522A784FBB005675B7 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		ECACA54B2A7704A4005675B7 /* CHatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHatListView.swift; sourceTree = "<group>"; };
 		ECACA54D2A770908005675B7 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		ECACA54F2A770A9B005675B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info-2.plist"; sourceTree = SOURCE_ROOT; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,7 +130,6 @@
 				87B8583E11A236E1AB86FE2A /* Pods-PassionConnectTests.debug.xcconfig */,
 				FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -186,6 +187,7 @@
 				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
 				ECACA50F2A756A58005675B7 /* Persistence.swift */,
 				ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */,
+				ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */,
 				ECACA50C2A756A58005675B7 /* Preview Content */,
 			);
 			path = PassionConnect;
@@ -228,7 +230,6 @@
 				ECACA5002A756A54005675B7 /* Frameworks */,
 				ECACA5012A756A54005675B7 /* Resources */,
 				4810D2A2DA891019D81E53C9 /* [CP] Embed Pods Frameworks */,
-				459909D0596D189C7CE60310 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +268,6 @@
 				ECACA51F2A756A59005675B7 /* Frameworks */,
 				ECACA5202A756A59005675B7 /* Resources */,
 				EF0636E6EF11E037470DB259 /* [CP] Embed Pods Frameworks */,
-				AEEB9E4EAF60107CA1AAEB2C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -329,6 +329,7 @@
 			files = (
 				ECACA50E2A756A58005675B7 /* Preview Assets.xcassets in Resources */,
 				ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */,
+				ECACA5522A784FBB005675B7 /* GoogleService-Info-2.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,23 +372,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		459909D0596D189C7CE60310 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect/Pods-PassionConnect-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4810D2A2DA891019D81E53C9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,23 +409,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AEEB9E4EAF60107CA1AAEB2C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C12163359E6463D144273AEA /* [CP] Check Pods Manifest.lock */ = {

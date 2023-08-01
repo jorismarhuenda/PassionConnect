@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 struct ChatDetailView: View {
     @Environment(\.presentationMode) var presentationMode
