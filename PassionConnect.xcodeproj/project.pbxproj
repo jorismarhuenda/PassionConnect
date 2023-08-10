@@ -10,7 +10,6 @@
 		0CE1575C9E263B7C4C2BAB12 /* Pods_PassionConnectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE10B72174209EB52BD9717 /* Pods_PassionConnectTests.framework */; };
 		D67419354010D3B889D92919 /* Pods_PassionConnect_PassionConnectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3A3621279E9E4C9E6B1A1A /* Pods_PassionConnect_PassionConnectUITests.framework */; };
 		EACA5E2FAAB99EEB1EE39901 /* Pods_PassionConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 741CB1F0708297F70CE2A67D /* Pods_PassionConnect.framework */; };
-		ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5062A756A54005675B7 /* PassionConnectApp.swift */; };
 		ECACA5092A756A54005675B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA5082A756A54005675B7 /* ContentView.swift */; };
 		ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECACA50A2A756A58005675B7 /* Assets.xcassets */; };
 		ECACA50E2A756A58005675B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECACA50D2A756A58005675B7 /* Preview Assets.xcassets */; };
@@ -34,6 +33,9 @@
 		ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54D2A770908005675B7 /* MatchDetailView.swift */; };
 		ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54F2A770A9B005675B7 /* UserProfileView.swift */; };
 		ECACA5522A784FBB005675B7 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */; };
+		ECB90A6C2A8410C3008D3891 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6B2A8410C3008D3891 /* User.swift */; };
+		ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */; };
+		ECB90A702A858112008D3891 /* UserInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6F2A858112008D3891 /* UserInterests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +65,6 @@
 		C9BCE71787A085088137EBCD /* Pods-PassionConnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect.release.xcconfig"; path = "Target Support Files/Pods-PassionConnect/Pods-PassionConnect.release.xcconfig"; sourceTree = "<group>"; };
 		DE77678AA50ED0FAC27A83C6 /* Pods-PassionConnect-PassionConnectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnect-PassionConnectUITests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnect-PassionConnectUITests/Pods-PassionConnect-PassionConnectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ECACA5032A756A54005675B7 /* PassionConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassionConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECACA5062A756A54005675B7 /* PassionConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectApp.swift; sourceTree = "<group>"; };
 		ECACA5082A756A54005675B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ECACA50A2A756A58005675B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECACA50D2A756A58005675B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -89,6 +90,9 @@
 		ECACA54D2A770908005675B7 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		ECACA54F2A770A9B005675B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info-2.plist"; sourceTree = SOURCE_ROOT; };
+		ECB90A6B2A8410C3008D3891 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
+		ECB90A6F2A858112008D3891 /* UserInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterests.swift; sourceTree = "<group>"; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +175,9 @@
 				ECACA5352A756B3C005675B7 /* UserInterestsView.swift */,
 				ECACA54F2A770A9B005675B7 /* UserProfileView.swift */,
 				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
+				ECB90A6B2A8410C3008D3891 /* User.swift */,
+				ECB90A6F2A858112008D3891 /* UserInterests.swift */,
+				ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */,
 				ECACA5392A756C63005675B7 /* ChatView.swift */,
 				ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */,
 				ECACA54B2A7704A4005675B7 /* CHatListView.swift */,
@@ -183,7 +190,6 @@
 				ECACA5472A77024F005675B7 /* FacebookLoginView.swift */,
 				ECACA5492A770294005675B7 /* EmailLoginView.swift */,
 				ECACA5082A756A54005675B7 /* ContentView.swift */,
-				ECACA5062A756A54005675B7 /* PassionConnectApp.swift */,
 				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
 				ECACA50F2A756A58005675B7 /* Persistence.swift */,
 				ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */,
@@ -467,11 +473,13 @@
 				ECACA5132A756A58005675B7 /* PassionConnect.xcdatamodeld in Sources */,
 				ECACA5482A77024F005675B7 /* FacebookLoginView.swift in Sources */,
 				ECACA53E2A7672AE005675B7 /* MatchesView.swift in Sources */,
+				ECB90A702A858112008D3891 /* UserInterests.swift in Sources */,
 				ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */,
 				ECACA54A2A770294005675B7 /* EmailLoginView.swift in Sources */,
+				ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */,
 				ECACA53C2A7670AC005675B7 /* ChatDetailView.swift in Sources */,
 				ECACA5382A756C2F005675B7 /* InterestMatchView.swift in Sources */,
-				ECACA5072A756A54005675B7 /* PassionConnectApp.swift in Sources */,
+				ECB90A6C2A8410C3008D3891 /* User.swift in Sources */,
 				ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */,
 				ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */,
 				ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */,
