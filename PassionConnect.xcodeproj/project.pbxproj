@@ -38,6 +38,7 @@
 		ECB90A702A858112008D3891 /* UserInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6F2A858112008D3891 /* UserInterests.swift */; };
 		ECB90A722A85889C008D3891 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A712A85889C008D3891 /* Match.swift */; };
 		ECB90A742A858A06008D3891 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A732A858A06008D3891 /* CardView.swift */; };
+		ECB90A762A85903F008D3891 /* Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A752A85903F008D3891 /* Messaging.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		ECB90A6F2A858112008D3891 /* UserInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterests.swift; sourceTree = "<group>"; };
 		ECB90A712A85889C008D3891 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		ECB90A732A858A06008D3891 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		ECB90A752A85903F008D3891 /* Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaging.swift; sourceTree = "<group>"; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,6 +182,7 @@
 				ECACA54F2A770A9B005675B7 /* UserProfileView.swift */,
 				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
 				ECB90A6B2A8410C3008D3891 /* User.swift */,
+				ECB90A752A85903F008D3891 /* Messaging.swift */,
 				ECB90A6F2A858112008D3891 /* UserInterests.swift */,
 				ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */,
 				ECACA5392A756C63005675B7 /* ChatView.swift */,
@@ -480,6 +483,7 @@
 				ECACA5482A77024F005675B7 /* FacebookLoginView.swift in Sources */,
 				ECACA53E2A7672AE005675B7 /* MatchesView.swift in Sources */,
 				ECB90A702A858112008D3891 /* UserInterests.swift in Sources */,
+				ECB90A762A85903F008D3891 /* Messaging.swift in Sources */,
 				ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */,
 				ECACA54A2A770294005675B7 /* EmailLoginView.swift in Sources */,
 				ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */,

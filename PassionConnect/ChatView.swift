@@ -54,21 +54,21 @@ struct Conversation: Identifiable {
 
 class MessagingDelegate: NSObject, MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let fcmToken = fcmToken {
-            // Mettre à jour le token FCM de l'utilisateur dans Firestore
-            let userId = Auth.auth().currentUser?.uid // Supposons que vous utilisez Firebase Authentication pour gérer l'authentification des utilisateurs
-            guard let userId = userId else { return }
-            
-            let userRef = Firestore.firestore().collection("users").document(userId)
-            userRef.updateData(["fcmToken": fcmToken]) { error in
-                if let error = error {
-                    print("Erreur lors de la mise à jour du token FCM dans Firestore : \(error.localizedDescription)")
-                } else {
-                    print("Token FCM mis à jour dans Firestore avec succès : \(fcmToken)")
+            if let fcmToken = fcmToken {
+                // Mettre à jour le token FCM de l'utilisateur dans Firestore
+                let userId = Auth.auth().currentUser?.uid
+                guard let userId = userId else { return }
+                
+                let userRef = Firestore.firestore().collection("users").document(userId)
+                userRef.updateData(["fcmToken": fcmToken]) { error in
+                    if let error = error {
+                        print("Erreur lors de la mise à jour du token FCM dans Firestore : \(error.localizedDescription)")
+                    } else {
+                        print("Token FCM mis à jour dans Firestore avec succès : \(fcmToken)")
+                    }
                 }
-            }
-            
-            UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken") // Stocker le token FCM dans la mémoire
+                
+                UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken") // Stocker le token FCM dans la mémoire
         }
     }
 }
