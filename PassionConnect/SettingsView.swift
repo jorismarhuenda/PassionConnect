@@ -38,6 +38,7 @@ struct SettingsView: View {
                 presentationMode.wrappedValue.dismiss()
                 viewModel.isProfileViewPresented = true
             }
+        
             .foregroundColor(.blue)
             
             Button("Déconnexion") {
@@ -93,8 +94,7 @@ struct SettingsView: View {
                 print("Erreur lors de la suppression du compte : \(error.localizedDescription)")
             } else {
                 viewModel.deleteUser(id: currentUser.uid)
+                }
             }
         }
     }
-}
-

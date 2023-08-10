@@ -36,6 +36,8 @@
 		ECB90A6C2A8410C3008D3891 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6B2A8410C3008D3891 /* User.swift */; };
 		ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */; };
 		ECB90A702A858112008D3891 /* UserInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6F2A858112008D3891 /* UserInterests.swift */; };
+		ECB90A722A85889C008D3891 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A712A85889C008D3891 /* Match.swift */; };
+		ECB90A742A858A06008D3891 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A732A858A06008D3891 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		ECB90A6B2A8410C3008D3891 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
 		ECB90A6F2A858112008D3891 /* UserInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterests.swift; sourceTree = "<group>"; };
+		ECB90A712A85889C008D3891 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		ECB90A732A858A06008D3891 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +191,8 @@
 				ECACA5412A768ED5005675B7 /* SettingsView.swift */,
 				ECACA5432A7692B9005675B7 /* ConversationsView.swift */,
 				ECACA5452A76FF51005675B7 /* DiscoverView.swift */,
+				ECB90A732A858A06008D3891 /* CardView.swift */,
+				ECB90A712A85889C008D3891 /* Match.swift */,
 				ECACA5472A77024F005675B7 /* FacebookLoginView.swift */,
 				ECACA5492A770294005675B7 /* EmailLoginView.swift */,
 				ECACA5082A756A54005675B7 /* ContentView.swift */,
@@ -483,6 +489,8 @@
 				ECACA5422A768ED5005675B7 /* SettingsView.swift in Sources */,
 				ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */,
 				ECACA5442A7692B9005675B7 /* ConversationsView.swift in Sources */,
+				ECB90A742A858A06008D3891 /* CardView.swift in Sources */,
+				ECB90A722A85889C008D3891 /* Match.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

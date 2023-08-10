@@ -16,6 +16,7 @@ class FirestoreViewModel: ObservableObject {
     @Published var currentUser: User = User(name: "", bio: "", email: "")
     @Published var matches: [Match] = []
     @Published var conversations: [Conversation] = []
+    @Published var isProfileViewPresented: Bool = false
     
     init() {
         loadAllConversations()
@@ -153,29 +154,29 @@ class FirestoreViewModel: ObservableObject {
                         }
     
     func loadUserInterests() {
-            guard let currentUserID = Auth.auth().currentUser?.uid else {
-                print("Erreur : utilisateur non connecté.")
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Erreur : utilisateur non connecté.")
+            return
+        }
+
+        let userInterestsRef = db.collection("userInterests").document(currentUserID)
+
+        userInterestsRef.getDocument { snapshot, error in
+            if let error = error {
+                print("Erreur lors du chargement des intérêts de l'utilisateur : \(error.localizedDescription)")
                 return
             }
 
-            let userInterestsRef = db.collection("userInterests").document(currentUserID)
-
-            userInterestsRef.getDocument { snapshot, error in
-                if let error = error {
-                    print("Erreur lors du chargement des intérêts de l'utilisateur : \(error.localizedDescription)")
-                    return
+            if let data = snapshot?.data(), let userInterests = try? Firestore.Decoder().decode(UserInterests.self, from: data) {
+                DispatchQueue.main.async {
+                    self.currentUserInterests = userInterests
                 }
-
-                if let data = snapshot?.data(), let userInterests = try? Firestore.Decoder().decode(UserInterests.self, from: data) {
-                    DispatchQueue.main.async {
-                        // Mettre à jour les intérêts de l'utilisateur actuel
-                        self.currentUserInterests = userInterests
-                    }
-                } else {
-                    print("Aucune donnée d'intérêts utilisateur trouvée.")
-                }
+            } else {
+                print("Aucune donnée d'intérêts utilisateur trouvée.")
             }
         }
+    }
+
     
     func loadPotentialMatches() {
             guard let currentUserID = Auth.auth().currentUser?.uid else {
@@ -287,30 +288,30 @@ class FirestoreViewModel: ObservableObject {
         }
     
     func updateUserInterests(_ interests: [String], completion: @escaping (Error?) -> Void) {
-            guard let currentUserID = Auth.auth().currentUser?.uid else {
-                return
-            }
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            return
+        }
 
-            let userInterestsRef = db.collection("userInterests").document(currentUserID)
-            let updatedInterests = UserInterests(interests: interests)
+        let userInterestsRef = db.collection("userInterests").document(currentUserID)
+        let updatedInterests = UserInterests(userId: currentUserID, interests: interests)  // Ajoutez l'ID de l'utilisateur ici
 
-            do {
-                try userInterestsRef.setData(from: updatedInterests, merge: true) { error in
-                    if let error = error {
-                        completion(error)
-                    } else {
-                        DispatchQueue.main.async {
-                            self.currentUserInterests = updatedInterests
-                        }
-                        completion(nil)
+        do {
+            try userInterestsRef.setData(from: updatedInterests, merge: true) { error in
+                if let error = error {
+                    completion(error)
+                } else {
+                    DispatchQueue.main.async {
+                        self.currentUserInterests = updatedInterests
                     }
+                    completion(nil)
                 }
-            } catch {
-                print("Erreur lors de la mise à jour des intérêts de l'utilisateur : \(error.localizedDescription)")
-                completion(error)
             }
+        } catch {
+            print("Erreur lors de la mise à jour des intérêts de l'utilisateur : \(error.localizedDescription)")
+            completion(error)
         }
     }
+
     
     func findRandomMatch(completion: @escaping (Match?) -> Void) {
             guard let currentUserID = currentUser.id else {

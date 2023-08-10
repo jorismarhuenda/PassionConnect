@@ -17,6 +17,5 @@ struct User: Identifiable, Codable {
     var age: Int
     var interests: [String]
     var description: String
-    
 }
 
