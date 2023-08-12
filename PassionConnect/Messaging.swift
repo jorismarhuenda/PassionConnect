@@ -5,7 +5,7 @@
 //  Created by marhuenda joris on 10/08/2023.
 //
 
-import Firebase
+import FirebaseMessaging
 
 class Messaging {
     static let shared = Messaging()

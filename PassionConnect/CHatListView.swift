@@ -14,7 +14,7 @@ struct ChatListView: View {
         NavigationView {
             List(viewModel.conversations) { conversation in
                 NavigationLink(destination: ChatView(conversation: conversation, viewModel: viewModel)) {
-                    Text(conversation.otherUserName.wrappedValue)
+                    Text(conversation.otherUserName)
                 }
             }
             .navigationBarTitle("Mes Conversations")

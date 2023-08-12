@@ -28,29 +28,6 @@ struct ChatMessage: Identifiable, Codable {
     @ServerTimestamp var timestamp: Timestamp?
 }
 
-struct Conversation: Identifiable {
-    var id = UUID()
-    var displayName: String // Nom à afficher pour la conversation
-    var user: User // Utilisateur avec lequel la conversation a lieu
-    var messages: [ChatMessage]
-    var isTyping: Bool // Indique si l'utilisateur est en train de taper un message
-    var quickReplies: [String] // Les réponses rapides pour cette conversation
-    var isUnread: Bool // Indique si la conversation est marquée comme "non lue"
-    var lastMessageText: String // Le texte du dernier message dans la conversation
-    
-    init(displayName: String, user: User, messages: [ChatMessage], isTyping: Bool, quickReplies: [String], isUnread: Bool) {
-        self.displayName = displayName
-        self.user = user
-        self.messages = messages
-        self.isTyping = isTyping
-        self.quickReplies = quickReplies
-        self.isUnread = isUnread
-        
-        // Get the last message text from messages
-        self.lastMessageText = messages.last?.text ?? "Aucun message"
-    }
-}
-
 
 class MessagingDelegate: NSObject, MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
@@ -73,19 +50,19 @@ class MessagingDelegate: NSObject, MessagingDelegate {
     }
 }
 
-
-
-
 struct ChatView: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel = FirestoreViewModel()
-    @State private var newMessageText: String = ""
-    @State private var isImagePickerPresented: Bool = false
-    @State private var selectedImage: UIImage? = nil
-    @State private var selectedImageData: Data? = nil
-    @State private var isUploadingImage: Bool = false
-    private var currentUser: User = User(name: "John Doe", profileImageName: "profile_image_1", fcmToken: nil)
-    private var otherUser: User = User(name: "Jane Smith", profileImageName: "profile_image_2", fcmToken: nil)
+    @State var newMessageText: String = ""
+    @State var isImagePickerPresented: Bool = false
+    @State var selectedImage: UIImage? = nil
+    @State var selectedImageData: Data? = nil
+    @State var isUploadingImage: Bool = false
+    @State var currentUser: User = User(id: UUID(), name: "John Doe", bio: "", email: "", profileImageName: "profile_image_1", fcmToken: nil, age: 0, interests: [], description: "")
+    var otherUser: User = User(id: UUID(), name: "Jane Smith", bio: "", email: "", profileImageName: "profile_image_2", fcmToken: nil, age: 0, interests: [], description: "")
+    var conversation: Conversation
+
+
     
     var body: some View {
         VStack {
@@ -98,25 +75,21 @@ struct ChatView: View {
             .padding()
             
             List {
-                ForEach(viewModel.conversations) { conversation in
-                    VStack(alignment: .leading) {
-                        Text(conversation.user.name)
-                            .font(.headline)
-                        ForEach(conversation.messages) { message in
-                            MessageRow(message: message, currentUser: currentUser)
-                                .contextMenu {
-                                    Button("Supprimer le message") {
-                                        viewModel.deleteMessage(message, in: conversation)
-                                    }
-                                }
+                ForEach(conversation.messages) { message in
+                    MessageRow(message: message, currentUser: currentUser)
+                        .contextMenu {
+                            Button("Supprimer le message") {
+                                viewModel.deleteMessage(message, in: conversation)
+                            }
                         }
-                        
-                        if conversation.isTyping {
-                            Text("Typing...")
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                        }
-                    }
+                }
+                
+                if conversation.isTyping {
+                    Text("Typing...")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+            }
                     .contextMenu {
                         ForEach(conversation.quickReplies, id: \.self) { reply in
                             Button(reply, action: {
@@ -129,7 +102,6 @@ struct ChatView: View {
                         }
                     }
                 }
-            }
             
             HStack {
                 Button(action: {
@@ -154,7 +126,6 @@ struct ChatView: View {
             }) {
                 ImagePicker(selectedImage: $selectedImage)
             }
-        }
         .onAppear {
             if let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
                 currentUser.fcmToken = fcmToken
@@ -163,68 +134,53 @@ struct ChatView: View {
     }
     
     private func sendMessage() {
-        let newMessage = ChatMessage(type: .text, senderID: currentUser.id, receiverID: otherUser.id, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
-        viewModel.sendMessage(newMessage)
+        var newMessage: ChatMessage
+
+        if let imageUrl = selectedImageData, !imageUrl.isEmpty {
+            // Upload the image and get the download URL
+            uploadImageToStorage(imageData: imageUrl)
+            return
+        } else {
+            newMessage = ChatMessage(type: .text, senderID: currentUser.id.uuidString, receiverID: otherUser.id.uuidString, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
+        }
+
+        viewModel.sendMessage(newMessage, in: conversation)
+
+        // Reset state
         newMessageText = ""
+        selectedImage = nil
+        selectedImageData = nil
+        isImagePickerPresented = false
     }
+
+
     
     private func uploadImageToStorage(imageData: Data) {
         isUploadingImage = true
-        // ...
-    }
-}
-
-struct MessageRow: View {
-    var message: ChatMessage
-    var currentUser: User
-    
-    var body: some View {
-        HStack {
-            if message.senderID == currentUser.id {
-                Spacer()
-                switch message.type {
-                case .text:
-                    Text(message.text ?? "")
-                        .padding()
-                        .background(message.isRead ? Color.blue : Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                case .image:
-                    Image(systemName: "photo")
-                        .font(.system(size: 50))
-                        .padding()
-                        .background(message.isRead ? Color.blue : Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+        
+        let storageRef = Storage.storage().reference()
+        let imageName = UUID().uuidString
+        let imageRef = storageRef.child("images/\(imageName).jpg")
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        _ = imageRef.putData(imageData, metadata: metadata) { metadata, error in
+            if let error = error {
+                print("Error uploading image: \(error)")
+                isUploadingImage = false
             } else {
-                VStack(alignment: .leading) {
-                    Text(message.senderID)
-                        .font(.footnote)
-                    switch message.type {
-                    case .text:
-                        Text(message.text ?? "")
-                            .padding()
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    case .image:
-                        Image(systemName: "photo")
-                            .font(.system(size: 50))
-                            .padding()
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                imageRef.downloadURL { url, error in
+                    if let imageUrl = url {
+                        let newMessage = ChatMessage(type: .image, senderID: currentUser.id.uuidString, receiverID: otherUser.id.uuidString, text: "", imageUrl: imageUrl.absoluteString, isRead: false, isConfidential: false, timestamp: Timestamp())
+                        
+                        viewModel.sendMessage(newMessage, in: conversation)
                     }
+                    
+                    isUploadingImage = false
                 }
-                Spacer()
-            }
-            if message.isConfidential {
-                Image(systemName: "lock.fill")
-                    .foregroundColor(.red)
             }
         }
-        .padding(.horizontal)
     }
 }
 

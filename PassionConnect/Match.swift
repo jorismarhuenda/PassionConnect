@@ -15,6 +15,9 @@ struct Match: Identifiable, CustomStringConvertible {
     let profileImageName: String
     let email: String
     let profileImageURL: URL?
+    var userName: String
+    var age: Int
+    var commonInterests: [String]
     
     var description: String {
         return """
@@ -33,8 +36,9 @@ struct Match: Identifiable, CustomStringConvertible {
 extension Match {
     static func testData() -> [Match] {
         return [
-            Match(id: 1, name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg")),
-            Match(id: 2, name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"))
+            Match(id: 1, name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"]),
+            Match(id: 2, name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"), userName: "JaneS", age: 28, commonInterests: ["Cooking"])
         ]
     }
 }
+

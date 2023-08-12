@@ -39,6 +39,8 @@
 		ECB90A722A85889C008D3891 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A712A85889C008D3891 /* Match.swift */; };
 		ECB90A742A858A06008D3891 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A732A858A06008D3891 /* CardView.swift */; };
 		ECB90A762A85903F008D3891 /* Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A752A85903F008D3891 /* Messaging.swift */; };
+		ECB90A782A87A551008D3891 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A772A87A551008D3891 /* Conversation.swift */; };
+		ECB90A7A2A87A89F008D3891 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A792A87A89F008D3891 /* MessageRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		ECB90A712A85889C008D3891 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		ECB90A732A858A06008D3891 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		ECB90A752A85903F008D3891 /* Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaging.swift; sourceTree = "<group>"; };
+		ECB90A772A87A551008D3891 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		ECB90A792A87A89F008D3891 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,9 +186,11 @@
 				ECACA54F2A770A9B005675B7 /* UserProfileView.swift */,
 				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
 				ECB90A6B2A8410C3008D3891 /* User.swift */,
+				ECB90A772A87A551008D3891 /* Conversation.swift */,
 				ECB90A752A85903F008D3891 /* Messaging.swift */,
 				ECB90A6F2A858112008D3891 /* UserInterests.swift */,
 				ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */,
+				ECB90A792A87A89F008D3891 /* MessageRow.swift */,
 				ECACA5392A756C63005675B7 /* ChatView.swift */,
 				ECACA53B2A7670AC005675B7 /* ChatDetailView.swift */,
 				ECACA54B2A7704A4005675B7 /* CHatListView.swift */,
@@ -472,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECB90A782A87A551008D3891 /* Conversation.swift in Sources */,
 				ECACA5462A76FF51005675B7 /* DiscoverView.swift in Sources */,
 				ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */,
 				ECACA5102A756A58005675B7 /* Persistence.swift in Sources */,
@@ -485,6 +492,7 @@
 				ECB90A702A858112008D3891 /* UserInterests.swift in Sources */,
 				ECB90A762A85903F008D3891 /* Messaging.swift in Sources */,
 				ECACA53A2A756C63005675B7 /* ChatView.swift in Sources */,
+				ECB90A7A2A87A89F008D3891 /* MessageRow.swift in Sources */,
 				ECACA54A2A770294005675B7 /* EmailLoginView.swift in Sources */,
 				ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */,
 				ECACA53C2A7670AC005675B7 /* ChatDetailView.swift in Sources */,
