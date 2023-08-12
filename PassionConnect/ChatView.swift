@@ -17,7 +17,7 @@ enum MessageType: String, Codable {
 }
 
 struct ChatMessage: Identifiable, Codable {
-    @DocumentID var id: String? = UUID().uuidString
+    var id: String = UUID().uuidString
     var type: MessageType
     var senderID: String
     var receiverID: String
@@ -25,27 +25,68 @@ struct ChatMessage: Identifiable, Codable {
     var imageUrl: String?
     var isRead: Bool // Indique si le message a été lu ou non
     var isConfidential: Bool // Indique si le message est confidentiel
-    @ServerTimestamp var timestamp: Timestamp?
+    var timestamp: Timestamp?
+    
+    enum CodingKeys: String, CodingKey {
+            case id
+            case type
+            case senderID
+            case receiverID
+            case text
+            case imageUrl
+            case isRead
+            case isConfidential
+            case timestamp
+        }
+    
+    init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.id = try container.decode(String.self, forKey: .id)
+            self.type = try container.decode(MessageType.self, forKey: .type)
+            self.senderID = try container.decode(String.self, forKey: .senderID)
+            self.receiverID = try container.decode(String.self, forKey: .receiverID)
+            self.text = try container.decodeIfPresent(String.self, forKey: .text)
+            self.imageUrl = try container.decodeIfPresent(String.self, forKey: .imageUrl)
+            self.isRead = try container.decode(Bool.self, forKey: .isRead)
+            self.isConfidential = try container.decode(Bool.self, forKey: .isConfidential)
+            let timestampValue = try container.decode(Double.self, forKey: .timestamp)
+            self.timestamp = Timestamp(seconds: Int64(timestampValue), nanoseconds: 0)
+            }
+    
+    func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(id, forKey: .id)
+            try container.encode(type, forKey: .type)
+            try container.encode(senderID, forKey: .senderID)
+            try container.encode(receiverID, forKey: .receiverID)
+            try container.encodeIfPresent(text, forKey: .text)
+            try container.encodeIfPresent(imageUrl, forKey: .imageUrl)
+            try container.encode(isRead, forKey: .isRead)
+            try container.encode(isConfidential, forKey: .isConfidential)
+            if let timestamp = timestamp {
+                   try container.encode(Double(timestamp.seconds), forKey: .timestamp)
+               }
+        }
 }
 
 
-class MessagingDelegate: NSObject, MessagingDelegate {
+class MyMessagingDelegate: NSObject, MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-            if let fcmToken = fcmToken {
-                // Mettre à jour le token FCM de l'utilisateur dans Firestore
-                let userId = Auth.auth().currentUser?.uid
-                guard let userId = userId else { return }
-                
-                let userRef = Firestore.firestore().collection("users").document(userId)
-                userRef.updateData(["fcmToken": fcmToken]) { error in
-                    if let error = error {
-                        print("Erreur lors de la mise à jour du token FCM dans Firestore : \(error.localizedDescription)")
-                    } else {
-                        print("Token FCM mis à jour dans Firestore avec succès : \(fcmToken)")
-                    }
+        if let fcmToken = fcmToken {
+            // Mettre à jour le token FCM de l'utilisateur dans Firestore
+            let userId = Auth.auth().currentUser?.uid
+            guard let userId = userId else { return }
+            
+            let userRef = Firestore.firestore().collection("users").document(userId)
+            userRef.updateData(["fcmToken": fcmToken]) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour du token FCM dans Firestore : \(error.localizedDescription)")
+                } else {
+                    print("Token FCM mis à jour dans Firestore avec succès : \(fcmToken)")
                 }
-                
-                UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken") // Stocker le token FCM dans la mémoire
+            }
+            
+            UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken") // Stocker le token FCM dans la mémoire
         }
     }
 }
@@ -134,20 +175,27 @@ struct ChatView: View {
     }
     
     private func sendMessage() {
-        var newMessage: ChatMessage
-
-        if let imageUrl = selectedImageData, !imageUrl.isEmpty {
+        if let imageData = selectedImageData, !imageData.isEmpty {
             // Upload the image and get the download URL
-            uploadImageToStorage(imageData: imageUrl)
-            return
+            uploadImageToStorage(imageData: imageData)
         } else {
-            newMessage = ChatMessage(type: .text, senderID: currentUser.id.uuidString, receiverID: otherUser.id.uuidString, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
+            let newMessage = ChatMessage(
+                type: .text,
+                senderID: self.currentUser.id.uuidString,
+                receiverID: self.otherUser.id.uuidString,
+                text: self.newMessageText ?? "",
+                imageUrl: nil,
+                isRead: false,
+                isConfidential: false,
+                timestamp: Timestamp()
+            )
+            
+            viewModel.sendMessage(newMessage, in: conversation)
+            
+            // Reset state
+            newMessageText = ""
         }
 
-        viewModel.sendMessage(newMessage, in: conversation)
-
-        // Reset state
-        newMessageText = ""
         selectedImage = nil
         selectedImageData = nil
         isImagePickerPresented = false
@@ -172,9 +220,18 @@ struct ChatView: View {
             } else {
                 imageRef.downloadURL { url, error in
                     if let imageUrl = url {
-                        let newMessage = ChatMessage(type: .image, senderID: currentUser.id.uuidString, receiverID: otherUser.id.uuidString, text: "", imageUrl: imageUrl.absoluteString, isRead: false, isConfidential: false, timestamp: Timestamp())
-                        
-                        viewModel.sendMessage(newMessage, in: conversation)
+                        let newMessage = ChatMessage(
+                            type: .image,
+                            senderID: self.currentUser.id.uuidString,
+                            receiverID: self.otherUser.id.uuidString,
+                            text: "",
+                            imageUrl: imageUrl.absoluteString,
+                            isRead: false,
+                            isConfidential: false,
+                            timestamp: Timestamp()
+                        )
+
+                        self.viewModel.sendMessage(newMessage, in: self.conversation)
                     }
                     
                     isUploadingImage = false
