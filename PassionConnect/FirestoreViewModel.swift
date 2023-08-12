@@ -18,7 +18,7 @@ class FirestoreViewModel: ObservableObject {
     @Published var conversations: [Conversation] = []
     @Published var isProfileViewPresented: Bool = false
     @Published var removedLikedUserID: UUID?
-    var likedUserIDs: Set<UUID> = []
+    var likedUserIDs: [UUID: Set<UUID>] = [:]
     
     init() {
         loadAllConversations()
@@ -36,7 +36,12 @@ class FirestoreViewModel: ObservableObject {
         likedUsersCollection.getDocument { document, error in
             if let document = document, document.exists {
                 if let likedIDs = document.data()?["likedUserIDs"] as? [String] {
-                    self.likedUserIDs = Set(likedIDs.compactMap { UUID(uuidString: $0) })
+                    self.likedUserIDs = Dictionary(uniqueKeysWithValues: likedIDs.compactMap { uuidString in
+                        guard let uuid = UUID(uuidString: uuidString) else {
+                            return nil
+                        }
+                        return (uuid, Set<UUID>())
+                    })
                 }
             }
         }
@@ -44,7 +49,7 @@ class FirestoreViewModel: ObservableObject {
     
     
     // Met à jour les correspondants aimés dans Firestore
-    func updateLikedUserIDs(completion: @escaping (Error?) -> Void) {
+    func updateLikedUserIDs(for userID: UUID, completion: @escaping (Error?) -> Void) {
         guard let currentUserID = currentUser?.id else {
             return
         }
@@ -53,7 +58,7 @@ class FirestoreViewModel: ObservableObject {
         let likedUsersCollection = Firestore.firestore().collection("LikedUsers").document(currentUserID.uuidString)
         
         // Convertissez les UUID en tableau de chaînes pour Firestore
-        let likedIDsArray = likedUserIDs.map { $0.uuidString }
+        let likedIDsArray = Array(likedUserIDs.keys).map { $0.uuidString }
         
         // Mettez à jour les données dans Firestore
         likedUsersCollection.setData(["likedUserIDs": likedIDsArray]) { error in
@@ -65,24 +70,25 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    func updatePotentialMatchesAfterUnmatch(_ potentialMatches: inout [Match]) {
-            if let matchedUserID = removedLikedUserID {
-                if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
-                    potentialMatches[matchedUserIndex].likedUserIDs.remove(currentUserID)
-                    updateLikedUserIDs(for: matchedUserID) { error in
-                        if let error = error {
-                            print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
-                        } else {
-                            // Mettre à jour la liste des correspondants potentiels après la suppression
-                            self.loadPotentialMatches()
-                        }
+    func updatePotentialMatchesAfterUnmatch(_ potentialMatches: inout [Match], currentUserID: UUID) {
+        if let matchedUserID = removedLikedUserID {
+            if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
+                likedUserIDs[currentUserID]?.remove(matchedUserID)
+                updateLikedUserIDs(for: currentUserID) { error in
+                    if let error = error {
+                        print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
+                    } else {
+                        // Mettre à jour la liste des correspondants potentiels après la suppression
+                        self.loadPotentialMatches()
                     }
                 }
-                
-                // Réinitialiser la propriété removedLikedUserID
-                removedLikedUserID = nil
             }
+            
+            // Réinitialiser la propriété removedLikedUserID
+            removedLikedUserID = nil
         }
+    }
+
     
     func unmatchUser(_ match: Match) {
         guard let currentUserID = currentUser?.id else {
@@ -90,26 +96,34 @@ class FirestoreViewModel: ObservableObject {
         }
         
         // Supprimer l'utilisateur de la liste des correspondants aimés par l'utilisateur actuel
-        likedUserIDs.remove(match.id)
-        updateLikedUserIDs { error in
-            if let error = error {
-                print("Erreur lors de la mise à jour des correspondants aimés : \(error.localizedDescription)")
-            } else {
-                // Supprimer l'utilisateur actuel de la liste des correspondants aimés par le correspondant
-                if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == match.id }) {
-                    potentialMatches[matchedUserIndex].likedUserIDs.remove(currentUserID)
-                    updateLikedUserIDs(for: match.id) { error in
-                        if let error = error {
-                            print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
-                        } else {
-                            // Mettre à jour la liste des correspondants potentiels après la suppression
-                            loadPotentialMatches()
-                        }
-                    }
+        if let userIDs = likedUserIDs[currentUserID] {
+            var updatedUserIDs = userIDs
+            updatedUserIDs.remove(match.id)
+            likedUserIDs[currentUserID] = updatedUserIDs
+            updateLikedUserIDs(for: currentUserID) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour des correspondants aimés : \(error.localizedDescription)")
                 }
             }
         }
+        
+        // Supprimer l'utilisateur actuel de la liste des correspondants aimés par le correspondant
+        let matchedUserID = match.id
+        if var matchedUser = likedUserIDs[matchedUserID] {
+            matchedUser.remove(currentUserID)
+            likedUserIDs[matchedUserID] = matchedUser
+            updateLikedUserIDs(for: matchedUserID) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
+                }
+            }
+            }
+        
+        // Mettre à jour la liste des correspondants potentiels après la suppression
+        updatePotentialMatchesAfterUnmatch(currentUserID: currentUserID)
     }
+
+
 
     func deleteConversation(_ conversationID: String) {
         guard let currentUserID = currentUser?.id else {
@@ -144,7 +158,7 @@ class FirestoreViewModel: ObservableObject {
         
         let conversationRef = db.collection("conversations").document()
         
-        let participants: [String] = [currentUserID, match.userID]
+        let participants: [String] = [currentUserID, match.id]
         let newConversation = Conversation(id: conversationRef.documentID, userIDs: participants)
         
         conversationRef.setData(newConversation.toDictionary()) { error in
@@ -166,7 +180,7 @@ class FirestoreViewModel: ObservableObject {
         
         let likeData: [String: Any] = [
             "userID": currentUserID,
-            "likedUserID": match.userID,
+            "likedUserID": match.id,
             "timestamp": FieldValue.serverTimestamp()
         ]
         
@@ -174,7 +188,7 @@ class FirestoreViewModel: ObservableObject {
             if let error = error {
                 completion(error)
             } else {
-                self.potentialMatches.removeAll { $0.userID == match.userID }
+                self.potentialMatches.removeAll { $0.userID == match.id }
                 completion(nil)
             }
         }
@@ -567,3 +581,4 @@ class FirestoreViewModel: ObservableObject {
         sendMessage(newMessage, in: conversation)
     }
 }
+
