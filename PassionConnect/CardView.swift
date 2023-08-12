@@ -48,7 +48,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        let match = Match(id: 1, name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"])
+        let match = Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"])
         CardView(match: match)
             .padding()
             .previewLayout(.sizeThatFits)

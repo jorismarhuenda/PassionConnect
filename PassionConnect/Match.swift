@@ -8,7 +8,7 @@
 import Foundation
 
 struct Match: Identifiable, CustomStringConvertible {
-    let id: Int
+    let id: UUID
     let name: String
     let bio: String
     let interests: [String]
@@ -36,8 +36,8 @@ struct Match: Identifiable, CustomStringConvertible {
 extension Match {
     static func testData() -> [Match] {
         return [
-            Match(id: 1, name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"]),
-            Match(id: 2, name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"), userName: "JaneS", age: 28, commonInterests: ["Cooking"])
+            Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"]),
+            Match(id: UUID(), name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"), userName: "JaneS", age: 28, commonInterests: ["Cooking"])
         ]
     }
 }

@@ -28,45 +28,45 @@ struct ChatMessage: Identifiable, Codable {
     var timestamp: Timestamp?
     
     enum CodingKeys: String, CodingKey {
-            case id
-            case type
-            case senderID
-            case receiverID
-            case text
-            case imageUrl
-            case isRead
-            case isConfidential
-            case timestamp
-        }
+        case id
+        case type
+        case senderID
+        case receiverID
+        case text
+        case imageUrl
+        case isRead
+        case isConfidential
+        case timestamp
+    }
     
     init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.id = try container.decode(String.self, forKey: .id)
-            self.type = try container.decode(MessageType.self, forKey: .type)
-            self.senderID = try container.decode(String.self, forKey: .senderID)
-            self.receiverID = try container.decode(String.self, forKey: .receiverID)
-            self.text = try container.decodeIfPresent(String.self, forKey: .text)
-            self.imageUrl = try container.decodeIfPresent(String.self, forKey: .imageUrl)
-            self.isRead = try container.decode(Bool.self, forKey: .isRead)
-            self.isConfidential = try container.decode(Bool.self, forKey: .isConfidential)
-            let timestampValue = try container.decode(Double.self, forKey: .timestamp)
-            self.timestamp = Timestamp(seconds: Int64(timestampValue), nanoseconds: 0)
-            }
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.type = try container.decode(MessageType.self, forKey: .type)
+        self.senderID = try container.decode(String.self, forKey: .senderID)
+        self.receiverID = try container.decode(String.self, forKey: .receiverID)
+        self.text = try container.decodeIfPresent(String.self, forKey: .text)
+        self.imageUrl = try container.decodeIfPresent(String.self, forKey: .imageUrl)
+        self.isRead = try container.decode(Bool.self, forKey: .isRead)
+        self.isConfidential = try container.decode(Bool.self, forKey: .isConfidential)
+        let timestampValue = try container.decode(Double.self, forKey: .timestamp)
+        self.timestamp = Timestamp(seconds: Int64(timestampValue), nanoseconds: 0)
+    }
     
     func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encode(id, forKey: .id)
-            try container.encode(type, forKey: .type)
-            try container.encode(senderID, forKey: .senderID)
-            try container.encode(receiverID, forKey: .receiverID)
-            try container.encodeIfPresent(text, forKey: .text)
-            try container.encodeIfPresent(imageUrl, forKey: .imageUrl)
-            try container.encode(isRead, forKey: .isRead)
-            try container.encode(isConfidential, forKey: .isConfidential)
-            if let timestamp = timestamp {
-                   try container.encode(Double(timestamp.seconds), forKey: .timestamp)
-               }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(type, forKey: .type)
+        try container.encode(senderID, forKey: .senderID)
+        try container.encode(receiverID, forKey: .receiverID)
+        try container.encodeIfPresent(text, forKey: .text)
+        try container.encodeIfPresent(imageUrl, forKey: .imageUrl)
+        try container.encode(isRead, forKey: .isRead)
+        try container.encode(isConfidential, forKey: .isConfidential)
+        if let timestamp = timestamp {
+            try container.encode(Double(timestamp.seconds), forKey: .timestamp)
         }
+    }
 }
 
 
@@ -93,56 +93,78 @@ class MyMessagingDelegate: NSObject, MessagingDelegate {
 
 struct ChatView: View {
     @Binding var isPresented: Bool
-    @ObservedObject var viewModel = FirestoreViewModel()
+    @ObservedObject var viewModel: FirestoreViewModel
+    @State private var isChatViewPresented = false
     @State var newMessageText: String = ""
-    @State var isImagePickerPresented: Bool = false
-    @State var selectedImage: UIImage? = nil
-    @State var selectedImageData: Data? = nil
-    @State var isUploadingImage: Bool = false
+    @State var isImagePickerPresented: Bool
+    @State var selectedImage: UIImage?
+    @State var selectedImageData: Data?
+    @State var isUploadingImage: Bool
     @State var currentUser: User = User(id: UUID(), name: "John Doe", bio: "", email: "", profileImageName: "profile_image_1", fcmToken: nil, age: 0, interests: [], description: "")
     var otherUser: User = User(id: UUID(), name: "Jane Smith", bio: "", email: "", profileImageName: "profile_image_2", fcmToken: nil, age: 0, interests: [], description: "")
     var conversation: Conversation
-
-
+    
+    
     
     var body: some View {
-        VStack {
-            HStack {
-                Button("Fermer") {
-                    isPresented = false
+        NavigationView {
+            List(viewModel.conversations) { conversation in
+                NavigationLink(
+                    destination: ChatView(
+                        isPresented: .constant(false),
+                        viewModel: viewModel,
+                        newMessageText: "",
+                        isImagePickerPresented: false,
+                        selectedImage: nil,
+                        selectedImageData: nil,
+                        isUploadingImage: false,
+                        currentUser: User(id: UUID(), name: "John Doe", bio: "", email: "", profileImageName: "profile_image_1", fcmToken: nil, age: 0, interests: [], description: ""),
+                        otherUser: User(id: UUID(), name: "Jane Smith", bio: "", email: "", profileImageName: "profile_image_2", fcmToken: nil, age: 0, interests: [], description: ""),
+                        conversation: conversation
+                    )
+                ) {
+                    Text(conversation.otherUserName)
                 }
-                Spacer()
+                .navigationBarTitle("Mes Conversations")
             }
-            .padding()
             
-            List {
-                ForEach(conversation.messages) { message in
-                    MessageRow(message: message, currentUser: currentUser)
-                        .contextMenu {
-                            Button("Supprimer le message") {
-                                viewModel.deleteMessage(message, in: conversation)
-                            }
-                        }
+            VStack {
+                HStack {
+                    Button("Fermer") {
+                        isPresented = false
+                    }
+                    Spacer()
                 }
+                .padding()
                 
-                if conversation.isTyping {
-                    Text("Typing...")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                }
-            }
-                    .contextMenu {
-                        ForEach(conversation.quickReplies, id: \.self) { reply in
-                            Button(reply, action: {
-                                viewModel.sendQuickReply(reply, in: conversation)
-                            })
-                        }
-                        
-                        Button("Marquer comme non lu") {
-                            viewModel.markAsUnread(conversation)
-                        }
+                List {
+                    ForEach(conversation.messages) { message in
+                        MessageRow(message: message, currentUser: currentUser)
+                            .contextMenu {
+                                Button("Supprimer le message") {
+                                    viewModel.deleteMessage(message, in: conversation)
+                                }
+                            }
+                    }
+                    
+                    if conversation.isTyping {
+                        Text("Typing...")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
                     }
                 }
+                .contextMenu {
+                    ForEach(conversation.quickReplies, id: \.self) { reply in
+                        Button(reply, action: {
+                            viewModel.sendQuickReply(reply, in: conversation)
+                        })
+                    }
+                    
+                    Button("Marquer comme non lu") {
+                        viewModel.markAsUnread(conversation)
+                    }
+                }
+            }
             
             HStack {
                 Button(action: {
@@ -167,74 +189,76 @@ struct ChatView: View {
             }) {
                 ImagePicker(selectedImage: $selectedImage)
             }
-        .onAppear {
-            if let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
-                currentUser.fcmToken = fcmToken
+            .onAppear {
+                viewModel.loadAllConversations()
+                if let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
+                    currentUser.fcmToken = fcmToken
+                }
             }
         }
-    }
-    
-    private func sendMessage() {
-        if let imageData = selectedImageData, !imageData.isEmpty {
-            // Upload the image and get the download URL
-            uploadImageToStorage(imageData: imageData)
-        } else {
-            let newMessage = ChatMessage(
-                type: .text,
-                senderID: self.currentUser.id.uuidString,
-                receiverID: self.otherUser.id.uuidString,
-                text: self.newMessageText ?? "",
-                imageUrl: nil,
-                isRead: false,
-                isConfidential: false,
-                timestamp: Timestamp()
-            )
-            
-            viewModel.sendMessage(newMessage, in: conversation)
-            
-            // Reset state
-            newMessageText = ""
-        }
-
-        selectedImage = nil
-        selectedImageData = nil
-        isImagePickerPresented = false
-    }
-
-
-    
-    private func uploadImageToStorage(imageData: Data) {
-        isUploadingImage = true
         
-        let storageRef = Storage.storage().reference()
-        let imageName = UUID().uuidString
-        let imageRef = storageRef.child("images/\(imageName).jpg")
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        
-        _ = imageRef.putData(imageData, metadata: metadata) { metadata, error in
-            if let error = error {
-                print("Error uploading image: \(error)")
-                isUploadingImage = false
+        private func sendMessage() {
+            if let imageData = selectedImageData, !imageData.isEmpty {
+                // Upload the image and get the download URL
+                uploadImageToStorage(imageData: imageData)
             } else {
-                imageRef.downloadURL { url, error in
-                    if let imageUrl = url {
-                        let newMessage = ChatMessage(
-                            type: .image,
-                            senderID: self.currentUser.id.uuidString,
-                            receiverID: self.otherUser.id.uuidString,
-                            text: "",
-                            imageUrl: imageUrl.absoluteString,
-                            isRead: false,
-                            isConfidential: false,
-                            timestamp: Timestamp()
-                        )
-
-                        self.viewModel.sendMessage(newMessage, in: self.conversation)
-                    }
-                    
+                let newMessage = ChatMessage(
+                    type: .text,
+                    senderID: self.currentUser.id.uuidString,
+                    receiverID: self.otherUser.id.uuidString,
+                    text: self.newMessageText ?? "",
+                    imageUrl: nil,
+                    isRead: false,
+                    isConfidential: false,
+                    timestamp: Timestamp()
+                )
+                
+                viewModel.sendMessage(newMessage, in: conversation)
+                
+                // Reset state
+                newMessageText = ""
+            }
+            
+            selectedImage = nil
+            selectedImageData = nil
+            isImagePickerPresented = false
+        }
+        
+        
+        
+        private func uploadImageToStorage(imageData: Data) {
+            isUploadingImage = true
+            
+            let storageRef = Storage.storage().reference()
+            let imageName = UUID().uuidString
+            let imageRef = storageRef.child("images/\(imageName).jpg")
+            
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            _ = imageRef.putData(imageData, metadata: metadata) { metadata, error in
+                if let error = error {
+                    print("Error uploading image: \(error)")
                     isUploadingImage = false
+                } else {
+                    imageRef.downloadURL { url, error in
+                        if let imageUrl = url {
+                            let newMessage = ChatMessage(
+                                type: .image,
+                                senderID: self.currentUser.id.uuidString,
+                                receiverID: self.otherUser.id.uuidString,
+                                text: "",
+                                imageUrl: imageUrl.absoluteString,
+                                isRead: false,
+                                isConfidential: false,
+                                timestamp: Timestamp()
+                            )
+                            
+                            self.viewModel.sendMessage(newMessage, in: self.conversation)
+                        }
+                        
+                        isUploadingImage = false
+                    }
                 }
             }
         }

@@ -57,6 +57,14 @@ struct DiscoverView: View {
                 })
                 .disabled(randomMatch != nil || currentMatchIndex >= potentialMatches.count)
                 
+                Button(action: unmatchCurrentMatch, label: { // Utilisez cette nouvelle fonction
+                    Image(systemName: "person.crop.circle.badge.xmark")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                        .foregroundColor(.orange)
+                })
+                .disabled(randomMatch != nil || currentMatchIndex >= potentialMatches.count)
+                
                 Button(action: findRandomMatch, label: {
                     Image(systemName: "shuffle")
                         .resizable()
@@ -67,10 +75,25 @@ struct DiscoverView: View {
             }
             .padding()
         }
+        .onReceive(viewModel.$removedLikedUserID) { removedUserID in
+            if let userID = removedUserID {
+                viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches)
+            }
+        }
         .onAppear {
             searchMatches()
         }
     }
+    
+    private func unmatchCurrentMatch() {
+            guard currentMatchIndex < potentialMatches.count else {
+                return
+            }
+            
+            let currentMatch = potentialMatches[currentMatchIndex]
+            viewModel.unmatchUser(currentMatch)
+            viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches)
+        }
     
     private func likeCurrentMatch() {
         guard currentMatchIndex < potentialMatches.count else {
