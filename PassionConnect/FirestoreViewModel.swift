@@ -90,7 +90,7 @@ class FirestoreViewModel: ObservableObject {
     }
 
     
-    func unmatchUser(_ match: Match) {
+    func unmatchUser(_ match: Match, potentialMatches: inout [Match]) {
         guard let currentUserID = currentUser?.id else {
             return
         }
@@ -120,7 +120,7 @@ class FirestoreViewModel: ObservableObject {
             }
         
         // Mettre à jour la liste des correspondants potentiels après la suppression
-        updatePotentialMatchesAfterUnmatch(currentUserID: currentUserID)
+        updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: currentUserID)
     }
 
 
@@ -130,13 +130,15 @@ class FirestoreViewModel: ObservableObject {
             return
         }
         
+        var localConversations = self.conversations
+        
         Firestore.firestore().collection("conversations").document(conversationID).delete { error in
             if let error = error {
                 print("Erreur lors de la suppression de la conversation : \(error.localizedDescription)")
             } else {
                 // Supprimer la conversation de la liste des conversations de l'utilisateur
-                if let index = conversations.firstIndex(where: { $0.id == conversationID }) {
-                    conversations.remove(at: index)
+                if let index = localConversations.firstIndex(where: { $0.id.uuidString == conversationID }) {
+                    self.conversations.remove(at: index)
                 }
             }
         }
@@ -147,9 +149,10 @@ class FirestoreViewModel: ObservableObject {
                 print("Erreur lors de la mise à jour des conversations : \(error.localizedDescription)")
             }
         }
+        self.conversations = localConversations
     }
     
-    func createConversation(with match: Match, completion: @escaping (Result<Conversation, Error>) -> Void) {
+    func createConversation(with match: Match, completion: @escaping (Result<Conversation, Error>) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             let error = NSError(domain: "FirestoreViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "ID de l'utilisateur actuel manquant"])
             completion(.failure(error))
@@ -170,7 +173,7 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    func likeMatch(_ match: Match, completion: @escaping (Error?) -> Void) {
+    func likeMatch(_ match: Match, completion: @escaping (Error?) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             print("Erreur : impossible de liker le correspondant, l'ID de l'utilisateur actuel est manquant.")
             return
@@ -188,7 +191,7 @@ class FirestoreViewModel: ObservableObject {
             if let error = error {
                 completion(error)
             } else {
-                self.potentialMatches.removeAll { $0.userID == match.id }
+                potentialMatches.removeAll { $0.userID == match.id }
                 completion(nil)
             }
         }
@@ -251,7 +254,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     
-    func loadPotentialMatches() {
+    func loadPotentialMatches(potentialMatches: inout [Match]) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             print("Erreur : impossible de charger les correspondants potentiels, l'ID de l'utilisateur actuel est manquant.")
             return
@@ -269,7 +272,7 @@ class FirestoreViewModel: ObservableObject {
                 print("Aucun correspondant potentiel trouvé.")
                 return
             }
-            let potentialMatches = documents.compactMap { document -> Match? in
+            var potentialMatches = documents.compactMap { document -> Match? in
                 do {
                     let match = try document.data(as: Match.self)
                     return match
@@ -280,7 +283,7 @@ class FirestoreViewModel: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                self.potentialMatches = potentialMatches
+                potentialMatches = potentialMatches
             }
         }
     }
