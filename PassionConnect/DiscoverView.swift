@@ -77,7 +77,7 @@ struct DiscoverView: View {
         }
         .onReceive(viewModel.$removedLikedUserID) { removedUserID in
             if let userID = removedUserID {
-                viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches)
+                viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: userID)
             }
         }
         .onAppear {
@@ -91,9 +91,11 @@ struct DiscoverView: View {
             }
             
             let currentMatch = potentialMatches[currentMatchIndex]
-            viewModel.unmatchUser(currentMatch)
-            viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches)
+            viewModel.unmatchUser(currentMatch, potentialMatches: &potentialMatches)
+        if let currentUserID = viewModel.currentUser?.id {
+            viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: currentUserID)
         }
+    }
     
     private func likeCurrentMatch() {
         guard currentMatchIndex < potentialMatches.count else {

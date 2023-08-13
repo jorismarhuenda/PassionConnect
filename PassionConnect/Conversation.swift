@@ -16,20 +16,20 @@ struct Conversation: Identifiable {
     var quickReplies: [String] // Les réponses rapides pour cette conversation
     var isUnread: Bool // Indique si la conversation est marquée comme "non lue"
     var lastMessageText: String // Le texte du dernier message dans la conversation
-    let userID: String
-    let otherUserID: String
+    let userIDs: [UUID] // Liste des identifiants d'utilisateurs
     let otherUserName: String
     
-    init(displayName: String, user: User, messages: [ChatMessage], isTyping: Bool, quickReplies: [String], isUnread: Bool, otherUserName: String) {
+    init(id: UUID = UUID(), userIDs: [UUID], displayName: String, user: User, messages: [ChatMessage], isTyping: Bool, quickReplies: [String], isUnread: Bool, lastMessageText: String, otherUserName: String) {
+        self.id = id
+        self.userIDs = userIDs
         self.displayName = displayName
         self.user = user
         self.messages = messages
         self.isTyping = isTyping
         self.quickReplies = quickReplies
         self.isUnread = isUnread
+        self.lastMessageText = lastMessageText
         self.otherUserName = otherUserName
-        
-        // Get the last message text from messages
-        self.lastMessageText = messages.last?.text ?? "Aucun message"
     }
 }
+

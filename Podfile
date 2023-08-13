@@ -6,6 +6,8 @@ target 'PassionConnect' do
   use_frameworks!
 
 pod 'Firebase'
+pod 'FirebaseFirestoreSwift'
+pod 'FirebaseCore'
 pod 'FirebaseMessaging'
 pod 'Google-Mobile-Ads-SDK'
 pod 'FirebaseAuth'

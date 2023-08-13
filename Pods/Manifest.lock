@@ -273,6 +273,8 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 1.30906.0)
+  - FirebaseFirestoreSwift (0.4.0):
+    - FirebaseFirestore (>= 1.6.1, ~> 1.6)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
     - GoogleUtilities/Environment (~> 6.7)
@@ -365,8 +367,10 @@ DEPENDENCIES:
   - FBSDKShareKit
   - Firebase
   - FirebaseAuth
+  - FirebaseCore
   - FirebaseDatabase
   - FirebaseFirestore
+  - FirebaseFirestoreSwift
   - FirebaseMessaging
   - FirebaseStorage
   - Google-Mobile-Ads-SDK
@@ -387,6 +391,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
@@ -419,6 +424,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseDatabase: 13a865a4b85897462b930eb683bda8f52583713f
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
+  FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
   FirebaseMessaging: 5eca4ef173de76253352511aafef774caa1cba2a
@@ -436,6 +442,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: c6bc59bbab3d38a71c67f62d7cb7ca8f8ea4eca1
 
-PODFILE CHECKSUM: 47ecd137a615a2bc2e8de61c4d9474b918a0486d
+PODFILE CHECKSUM: 53e77be0f547da4396cbe196bafc1858e3c635a9
 
 COCOAPODS: 1.11.3

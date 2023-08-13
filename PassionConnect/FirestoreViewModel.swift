@@ -10,6 +10,7 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 import UserNotifications
+import FirebaseFirestoreSwift
 
 class FirestoreViewModel: ObservableObject {
     private let db = Firestore.firestore()
@@ -18,7 +19,7 @@ class FirestoreViewModel: ObservableObject {
     @Published var conversations: [Conversation] = []
     @Published var isProfileViewPresented: Bool = false
     @Published var removedLikedUserID: UUID?
-    var likedUserIDs: [UUID: Set<UUID>] = [:]
+    @Published var likedUserIDs: [UUID: Set<UUID>] = [:]
     
     init() {
         loadAllConversations()
@@ -73,7 +74,7 @@ class FirestoreViewModel: ObservableObject {
     func updatePotentialMatchesAfterUnmatch(_ potentialMatches: inout [Match], currentUserID: UUID) {
         if let matchedUserID = removedLikedUserID {
             if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
-                likedUserIDs[currentUserID]?.remove(matchedUserID)
+                self.likedUserIDs[currentUserID]?.remove(matchedUserID)
                 updateLikedUserIDs(for: currentUserID) { error in
                     if let error = error {
                         print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
@@ -88,7 +89,6 @@ class FirestoreViewModel: ObservableObject {
             removedLikedUserID = nil
         }
     }
-
     
     func unmatchUser(_ match: Match, potentialMatches: inout [Match]) {
         guard let currentUserID = currentUser?.id else {
@@ -130,7 +130,7 @@ class FirestoreViewModel: ObservableObject {
             return
         }
         
-        var localConversations = self.conversations
+        let localConversations = self.conversations
         
         Firestore.firestore().collection("conversations").document(conversationID).delete { error in
             if let error = error {
@@ -152,6 +152,29 @@ class FirestoreViewModel: ObservableObject {
         self.conversations = localConversations
     }
     
+    // Mettre à jour la liste des conversations de l'utilisateur dans Firestore
+        func updateConversations(for userID: UUID, completion: @escaping (Error?) -> Void) {
+            // Accédez à la collection "Conversations" dans Firestore pour l'utilisateur
+            let conversationsCollection = Firestore.firestore().collection("Conversations").document(userID.uuidString)
+
+            // Construisez un tableau des conversations de l'utilisateur à mettre à jour dans Firestore
+            let conversationsToUpdate: [[String: Any]] = conversations.map { conversation in
+                return [
+                    "id": conversation.id,
+                    // Ajoutez d'autres propriétés de conversation à mettre à jour ici
+                ]
+            }
+
+            // Mettez à jour les données dans Firestore
+            conversationsCollection.setData(["conversations": conversationsToUpdate]) { error in
+                if let error = error {
+                    completion(error)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    
     func createConversation(with match: Match, completion: @escaping (Result<Conversation, Error>) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             let error = NSError(domain: "FirestoreViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "ID de l'utilisateur actuel manquant"])
@@ -161,17 +184,78 @@ class FirestoreViewModel: ObservableObject {
         
         let conversationRef = db.collection("conversations").document()
         
-        let participants: [String] = [currentUserID, match.id]
-        let newConversation = Conversation(id: conversationRef.documentID, userIDs: participants)
+        // Créer le currentUser avec les informations appropriées
+        let currentUser = User(
+            name: "John Doe",
+            bio: "Nature lover",
+            email: "john@example.com",
+            profileImageName: "john",
+            fcmToken: "VotreTokenFCM",
+            age: 25,
+            interests: ["Intérêt1", "Intérêt2"],
+            description: "VotreDescription"
+        )
         
-        conversationRef.setData(newConversation.toDictionary()) { error in
+        // Convertir les participants en UUID
+        guard let currentUserUUID = UUID(uuidString: currentUserID),
+              let otherUserUUID = UUID(uuidString: match.id.uuidString) else {
+            let error = NSError(domain: "FirestoreViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "Erreur lors de la conversion d'UUID"])
+            completion(.failure(error))
+            return
+        }
+        
+        // Utiliser les UUID pour créer le tableau userIDs
+        let userIDs: [UUID] = [currentUserUUID, otherUserUUID]
+        
+        // Créer la nouvelle conversation
+        let conversationUUID = UUID(uuidString: conversationRef.documentID) ?? UUID()
+        let conversationData: [String: Any] = [
+            "id": conversationUUID.uuidString,
+            "userIDs": userIDs.map { $0.uuidString },
+            "displayName": "NomAffiché",
+            "user": [
+                "name": currentUser.name,
+                "bio": currentUser.bio,
+                "email": currentUser.email,
+                "profileImageName": currentUser.profileImageName,
+                "fcmToken": currentUser.fcmToken,
+                "age": currentUser.age,
+                "interest": currentUser.interests,
+                "description": currentUser.description
+            ],
+            "messages": [], // Mettez en forme les messages ici
+            "isTyping": false,
+            "quickReplies": [],
+            "isUnread": true,
+            "lastMessageText": "Aucun message",
+            "otherUserName": "NomAutreUtilisateur"
+        ]
+        
+        // Enregistrer la conversation dans Firestore
+        conversationRef.setData(conversationData) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(newConversation))
+                // Créer l'instance Conversation à partir des données
+                let conversation = Conversation(
+                    id: conversationUUID,
+                    userIDs: userIDs,
+                    displayName: "NomAffiché",
+                    user: currentUser,
+                    messages: [],
+                    isTyping: false,
+                    quickReplies: [],
+                    isUnread: true,
+                    lastMessageText: "Aucun message",
+                    otherUserName: "NomAutreUtilisateur"
+                )
+                completion(.success(conversation))
             }
         }
     }
+
+
+
     
     func likeMatch(_ match: Match, completion: @escaping (Error?) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
@@ -191,7 +275,9 @@ class FirestoreViewModel: ObservableObject {
             if let error = error {
                 completion(error)
             } else {
-                potentialMatches.removeAll { $0.userID == match.id }
+                if let indexToRemove = potentialMatches.firstIndex(where: { $0.id == match.id }) {
+                                potentialMatches.remove(at: indexToRemove)
+                            }
                 completion(nil)
             }
         }
@@ -243,15 +329,22 @@ class FirestoreViewModel: ObservableObject {
                 return
             }
             
-            if let data = snapshot?.data(), let userInterests = try? Firestore.Decoder().decode(UserInterests.self, from: data) {
-                DispatchQueue.main.async {
-                    self.currentUserInterests = userInterests
+            if let data = snapshot?.data() {
+                do {
+                    let decoder = Firestore.Decoder()
+                    let userInterests = try decoder.decode(UserInterests.self, from: data)
+                    DispatchQueue.main.async {
+                        self.currentUserInterests = userInterests
+                    }
+                } catch {
+                    print("Erreur lors du décodage des intérêts de l'utilisateur : \(error.localizedDescription)")
                 }
             } else {
                 print("Aucune donnée d'intérêts utilisateur trouvée.")
             }
         }
     }
+
     
     
     func loadPotentialMatches(potentialMatches: inout [Match]) {
