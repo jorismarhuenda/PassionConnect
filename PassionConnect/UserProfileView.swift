@@ -17,10 +17,10 @@ struct UserProfileView: View {
         init(viewModel: FirestoreViewModel) {
             self.viewModel = viewModel
             // Initialize the State variables here
-            _name = State(initialValue: viewModel.currentUser.name)
-            _age = State(initialValue: viewModel.currentUser.age)
-            _interests = State(initialValue: viewModel.currentUser.interests)
-            _description = State(initialValue: viewModel.currentUser.description)
+            _name = State(initialValue: viewModel.currentUser?.name ?? "")
+            _age = State(initialValue: viewModel.currentUser?.age ?? 0)
+            _interests = State(initialValue: viewModel.currentUser?.interests ?? [])
+            _description = State(initialValue: viewModel.currentUser?.description ?? "")
         }
         
         var body: some View {
@@ -52,21 +52,28 @@ struct UserProfileView: View {
         .navigationBarTitle("Mon Profil")
         .onAppear {
             // Remplir les champs avec les informations actuelles de l'utilisateur
-            name = viewModel.currentUser.name
-            age = viewModel.currentUser.age
-            interests = viewModel.currentUser.interests
-            description = viewModel.currentUser.description
+            name = viewModel.currentUser?.name ?? ""
+            age = viewModel.currentUser?.age ?? 0
+            interests = viewModel.currentUser?.interests ?? []
+            description = viewModel.currentUser?.description ?? ""
         }
     }
     
     private func updateProfile() {
-        guard let currentUserID = viewModel.currentUser.id else {
+        guard let currentUserID = viewModel.currentUser else {
             return
         }
         
-        let updatedUser = User(id: currentUserID, name: name, age: age, interests: interests, description: description)
+        let updatedUser = User(name: "John Doe",
+                               bio: "Nature lover",
+                               email: "john@example.com",
+                               profileImageName: "john",
+                               fcmToken: "VotreTokenFCM",
+                               age: 25,
+                               interests: ["Intérêt1", "Intérêt2"],
+                               description: "VotreDescription")
         
-        viewModel.updateUserProfile(updatedUser) { error in
+        viewModel.updateUserProfile(updatedUser, firestore: viewModel.db) { error in
             if let error = error {
                 print("Erreur lors de la mise à jour du profil : \(error.localizedDescription)")
             }

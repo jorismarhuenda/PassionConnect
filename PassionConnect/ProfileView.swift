@@ -29,13 +29,13 @@ struct ProfileView: View {
                 }
                 .padding()
                 .onAppear {
-                    name = viewModel.currentUser.name
-                    bio = viewModel.currentUser.bio
+                    name = viewModel.currentUser?.name ?? ""
+                    bio = viewModel.currentUser?.bio ?? ""
                 }
             } else {
                 VStack {
-                    Text("Nom : \(viewModel.currentUser.name)")
-                    Text("Biographie : \(viewModel.currentUser.bio)")
+                    Text("Nom : \(viewModel.currentUser?.name ?? "")")
+                    Text("Biographie : \(viewModel.currentUser?.bio ?? "")")
                 }
                 .padding()
             }
@@ -55,8 +55,8 @@ struct ProfileView: View {
         }
         .navigationBarTitle("Profil")
         .onAppear {
-            name = viewModel.currentUser.name
-            bio = viewModel.currentUser.bio
+            name = viewModel.currentUser?.name ?? ""
+            bio = viewModel.currentUser?.bio ?? ""
         }
     }
     

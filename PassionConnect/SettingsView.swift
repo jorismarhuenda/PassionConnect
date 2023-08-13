@@ -28,9 +28,9 @@ struct SettingsView: View {
                 .font(.largeTitle)
             
             VStack(alignment: .leading, spacing: 10) {
-                Text("Nom : \(viewModel.currentUser.name)")
-                Text("Biographie : \(viewModel.currentUser.bio)")
-                Text("Email : \(viewModel.currentUser.email)")
+                Text("Nom : \(viewModel.currentUser?.name ?? "")")
+                Text("Biographie : \(viewModel.currentUser?.bio ?? "")")
+                Text("Email : \(viewModel.currentUser?.email ?? "")")
             }
             
             Button("Modifier le profil") {

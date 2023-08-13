@@ -13,7 +13,7 @@ import UserNotifications
 import FirebaseFirestoreSwift
 
 class FirestoreViewModel: ObservableObject {
-    private let db = Firestore.firestore()
+    let db = Firestore.firestore()
     @Published var currentUser: User?
     @Published var matches: [Match] = []
     @Published var conversations: [Conversation] = []
@@ -218,7 +218,7 @@ class FirestoreViewModel: ObservableObject {
                 "bio": currentUser.bio,
                 "email": currentUser.email,
                 "profileImageName": currentUser.profileImageName,
-                "fcmToken": currentUser.fcmToken,
+                "fcmToken": currentUser.fcmToken!,
                 "age": currentUser.age,
                 "interest": currentUser.interests,
                 "description": currentUser.description
@@ -302,7 +302,7 @@ class FirestoreViewModel: ObservableObject {
                 do {
                     if let user = try document.data(as: User.self) {
                         if user.id != currentUser.id && !likedUserIDs.contains(user.id!) {
-                            let match = Match(userID: user.id!, userName: user.name, age: user.age, commonInterests: Array(Set(user.interests).intersection(interests)))
+                            let match = Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"])
                             matches.append(match)
                         }
                     }
@@ -405,7 +405,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func updateUserProfile(_ user: User, firestore: Firestore, completion: @escaping (Error?) -> Void) {
-        let userRef = firestore.collection("users").document(user.id)
+        let userRef = firestore.collection("users").document(user.id.uuidString)
         let updatedData: [String: Any] = [
             "name": user.name,
             "age": user.age,
@@ -438,8 +438,8 @@ class FirestoreViewModel: ObservableObject {
                 completion(error)
             } else {
                 DispatchQueue.main.async {
-                    self.currentUser.name = name
-                    self.currentUser.bio = bio
+                    self.currentUser?.name = name
+                    self.currentUser?.bio = bio
                 }
                 completion(nil)
             }
@@ -482,7 +482,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     
-    func findRandomMatch(completion: @escaping (Match?) -> Void) {
+    func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = currentUser.id else {
             completion(nil)
             return
@@ -495,7 +495,7 @@ class FirestoreViewModel: ObservableObject {
         }
         
         // Filtrer les correspondants potentiels pour obtenir ceux qui n'ont pas encore été aimés
-        let unmatchedMatches = potentialMatches.filter { !likedUserIDs.contains($0.userID) }
+        let unmatchedMatches = potentialMatches.filter { !likedUserIDs.contains($0.id.uuidString) }
         
         // Sélectionner un correspondant aléatoire parmi les correspondants potentiels non aimés
         let randomIndex = Int.random(in: 0..<unmatchedMatches.count)
@@ -510,7 +510,7 @@ class FirestoreViewModel: ObservableObject {
         
         // Mettre à jour les correspondants aimés par le correspondant sélectionné
         if let matchedUserID = randomMatch.userID {
-            var matchedUser = potentialMatches.first { $0.userID == matchedUserID }
+            var matchedUser = potentialMatches.first { $0.id == matchedUserID }
             matchedUser?.likedUserIDs.insert(currentUserID)
             if let updatedMatchedUser = matchedUser {
                 updateLikedUserIDs(for: matchedUserID) { error in

@@ -13,7 +13,7 @@ struct MessageRow: View {
     
     var body: some View {
         HStack {
-            if message.senderID == currentUser.id {
+            if message.senderID == currentUser.id.uuidString {
                 Spacer()
                 switch message.type {
                 case .text:

@@ -69,28 +69,6 @@ struct ChatMessage: Identifiable, Codable {
     }
 }
 
-
-class MyMessagingDelegate: NSObject, MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let fcmToken = fcmToken {
-            // Mettre à jour le token FCM de l'utilisateur dans Firestore
-            let userId = Auth.auth().currentUser?.uid
-            guard let userId = userId else { return }
-            
-            let userRef = Firestore.firestore().collection("users").document(userId)
-            userRef.updateData(["fcmToken": fcmToken]) { error in
-                if let error = error {
-                    print("Erreur lors de la mise à jour du token FCM dans Firestore : \(error.localizedDescription)")
-                } else {
-                    print("Token FCM mis à jour dans Firestore avec succès : \(fcmToken)")
-                }
-            }
-            
-            UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken") // Stocker le token FCM dans la mémoire
-        }
-    }
-}
-
 struct ChatView: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: FirestoreViewModel
@@ -304,7 +282,7 @@ struct PassionConnectApp: App {
     
     init() {
         FirebaseApp.configure()
-        Messaging.messaging().delegate = MessagingDelegate()
+        Messaging.messaging().delegate = MyMessagingDelegate()
         // Configurer les options de notification pour l'obtention du consentement de l'utilisateur (si nécessaire)
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in

@@ -7,8 +7,8 @@
 
 import FirebaseMessaging
 
-class Messaging {
-    static let shared = Messaging()
+class MyMessaging {
+    static let shared = MyMessaging()
 
     func subscribe(to topic: String) {
         Messaging.messaging().subscribe(toTopic: topic) { error in

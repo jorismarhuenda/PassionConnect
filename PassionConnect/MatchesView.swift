@@ -41,7 +41,7 @@ struct MatchesView: View {
     }
     
     private func showChatView(for match: Match) {
-        if let conversation = viewModel.conversations.first(where: { $0.userIDs.contains(match.userID) }) {
+        if let conversation = viewModel.conversations.first(where: { $0.userIDs.contains(match.id) }) {
             selectedConversation = conversation
             isShowingChatView = true
         } else {
