@@ -20,6 +20,7 @@ class FirestoreViewModel: ObservableObject {
     @Published var isProfileViewPresented: Bool = false
     @Published var removedLikedUserID: UUID?
     @Published var likedUserIDs: [UUID: Set<UUID>] = [:]
+    @Published var currentUserInterests: UserInterests?
     
     init() {
         loadAllConversations()
@@ -365,15 +366,15 @@ class FirestoreViewModel: ObservableObject {
                 print("Aucun correspondant potentiel trouvé.")
                 return
             }
-            var potentialMatches = documents.compactMap { document -> Match? in
-                do {
-                    let match = try document.data(as: Match.self)
-                    return match
-                } catch {
-                    print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
-                    return nil
-                }
-            }
+            potentialMatches = documents.compactMap { document -> Match? in
+                        do {
+                            let match = try document.data(as: Match.self)
+                            return match
+                        } catch {
+                            print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
+                            return nil
+                        }
+                    }
             
             DispatchQueue.main.async {
                 potentialMatches = potentialMatches

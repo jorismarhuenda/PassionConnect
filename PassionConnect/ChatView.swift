@@ -174,6 +174,7 @@ struct ChatView: View {
                 }
             }
         }
+    }
         
         private func sendMessage() {
             if let imageData = selectedImageData, !imageData.isEmpty {
@@ -241,7 +242,6 @@ struct ChatView: View {
             }
         }
     }
-}
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?

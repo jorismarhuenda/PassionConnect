@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Match: Identifiable, CustomStringConvertible {
     let id: UUID
