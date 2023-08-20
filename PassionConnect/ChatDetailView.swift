@@ -81,7 +81,7 @@ struct ChatDetailView: View {
         })
     }
     
-    private func sendMessage() {
+    private func sendMessage(_ message: ChatMessage, in conversation: Conversation, completion: @escaping (Error?) -> Void) {
         if newMessageText.isEmpty && selectedImage == nil {
             return
         }

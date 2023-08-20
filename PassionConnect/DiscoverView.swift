@@ -66,7 +66,16 @@ struct DiscoverView: View {
                 .disabled(randomMatch != nil || currentMatchIndex >= potentialMatches.count)
                 
                 Button(action: {
-                    findRandomMatch()
+                    var arrayOfPotentialMatches: [Match] = []
+                    findRandomMatch(completion: { match in
+                        if let match = match {
+                            // Handle the case where a random match is found
+                            print("Found a random match: \(match)")
+                        } else {
+                            // Handle the case where no more potential matches are available
+                            print("No more potential matches.")
+                        }
+                    }, potentialMatches: &arrayOfPotentialMatches)
                 }, label: {
                     Image(systemName: "shuffle")
                         .resizable()
@@ -105,13 +114,15 @@ struct DiscoverView: View {
         }
         
         let currentMatch = potentialMatches[currentMatchIndex]
-        viewModel.likeMatch(currentMatch) { error in
+        viewModel.likeMatch(currentMatch, completion: { error in
             if let error = error {
                 print("Erreur lors du like du match : \(error.localizedDescription)")
             } else {
-                currentMatchIndex += 1
+                self.currentMatchIndex += 1
+                // Appeler la fonction suivante pour "liker" le prochain match
+                self.likeCurrentMatch()
             }
-        }
+        }, potentialMatches: &potentialMatches)
     }
     
     private func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {

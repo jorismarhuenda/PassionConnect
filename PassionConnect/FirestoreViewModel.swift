@@ -346,20 +346,22 @@ class FirestoreViewModel: ObservableObject {
             }
             
             if let data = snapshot?.data() {
-                do {
-                    let decoder = Firestore.Decoder()
-                    let userInterests = try decoder.decode(UserInterests.self, from: data)
+                // Since UserInterests is not Decodable, you'll need to manually decode the data
+                if let userId = data["userId"] as? String,
+                   let interests = data["interests"] as? [String] {
+                    let userInterests = UserInterests(id: UUID(), userId: userId, interests: interests)
                     DispatchQueue.main.async {
                         self.currentUserInterests = userInterests
                     }
-                } catch {
-                    print("Erreur lors du décodage des intérêts de l'utilisateur : \(error.localizedDescription)")
+                } else {
+                    print("Erreur lors du décodage des intérêts de l'utilisateur : données non valides.")
                 }
             } else {
                 print("Aucune donnée d'intérêts utilisateur trouvée.")
             }
         }
     }
+
 
     
     
@@ -471,35 +473,74 @@ class FirestoreViewModel: ObservableObject {
             }
         }
     }
+
+    func fetchUserInterestsData(userId: String, completion: @escaping (Result<UserInterests, Error>) -> Void) {
+        let db = Firestore.firestore()
+        
+        // Replace "userInterestsCollection" with the actual collection name
+        let userInterestsCollection = db.collection("user_interests")
+        
+        // Fetch the user interests document by user ID
+        userInterestsCollection.document(userId).getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let documentData = document?.data(),
+                       let userId = documentData["userId"] as? String,
+                       let interests = documentData["interests"] as? [String] {
+                        
+                        let userInterests = UserInterests(id: UUID(), userId: userId, interests: interests)
+                        completion(.success(userInterests))
+            } else {
+                let decodingError = NSError(domain: "FirestoreViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "Error decoding user interests"])
+                completion(.failure(decodingError))
+            }
+        }
+    }
+
     
     func updateUserInterests(_ interests: [String], completion: @escaping (Error?) -> Void) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             return
         }
         
-        let userInterestsRef = db.collection("userInterests").document(currentUserID)
-        let updatedInterests = UserInterests(userId: currentUserID, interests: interests)  // Ajoutez l'ID de l'utilisateur ici
+        let db = Firestore.firestore()
+        let userInterestsRef = db.collection("user_interests").document(currentUserID)  // Replace with your actual collection name
         
-        do {
-            try userInterestsRef.setData(from: updatedInterests, merge: true) { error in
-                if let error = error {
-                    completion(error)
-                } else {
-                    DispatchQueue.main.async {
-                        self.currentUserInterests = updatedInterests
+        fetchUserInterestsData(userId: currentUserID) { result in
+            switch result {
+            case .success(let userInterests):
+                var updatedInterests = userInterests
+                updatedInterests.interests = interests
+                
+                do {
+                    try userInterestsRef.setData(from: updatedInterests, merge: true) { error in
+                        if let error = error {
+                            completion(error)
+                        } else {
+                            DispatchQueue.main.async {
+                                // Update the currentUserInterests in your ViewModel
+                                self.currentUserInterests = updatedInterests
+                            }
+                            completion(nil)
+                        }
                     }
-                    completion(nil)
+                } catch {
+                    print("Erreur lors de la mise à jour des intérêts de l'utilisateur : \(error.localizedDescription)")
+                    completion(error)
                 }
+            case .failure(let error):
+                completion(error)
             }
-        } catch {
-            print("Erreur lors de la mise à jour des intérêts de l'utilisateur : \(error.localizedDescription)")
-            completion(error)
         }
     }
+
     
     
     func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {
-        guard let currentUserID = currentUser.id else {
+        guard let currentUserID = currentUser?.id else {
             completion(nil)
             return
         }
@@ -511,13 +552,18 @@ class FirestoreViewModel: ObservableObject {
         }
         
         // Filtrer les correspondants potentiels pour obtenir ceux qui n'ont pas encore été aimés
-        let unmatchedMatches = potentialMatches.filter { !likedUserIDs.contains($0.id.uuidString) }
+        let unmatchedMatches = potentialMatches.filter { match in
+            guard let setOfLikedUserIDs = likedUserIDs[match.id] else {
+                return true // The match's ID was not found in likedUserIDs, so keep it in unmatchedMatches
+            }
+            return !setOfLikedUserIDs.contains(currentUserID) // Replace currentUserID with the appropriate UUID
+        }
         
         // Sélectionner un correspondant aléatoire parmi les correspondants potentiels non aimés
         let randomIndex = Int.random(in: 0..<unmatchedMatches.count)
         let randomMatch = unmatchedMatches[randomIndex]
         // Mettre à jour la liste des correspondants aimés par l'utilisateur actuel
-        likedUserIDs.insert(randomMatch.userID)
+        likedUserIDs[randomMatch.id] = [currentUserID]
         updateLikedUserIDs(for: currentUserID) { error in
             if let error = error {
                 print("Erreur lors de la mise à jour des correspondants aimés : \(error.localizedDescription)")
@@ -525,7 +571,7 @@ class FirestoreViewModel: ObservableObject {
         }
         
         // Mettre à jour les correspondants aimés par le correspondant sélectionné
-        if let matchedUserID = randomMatch.userID {
+        if let matchedUserID = randomMatch.id {
             var matchedUser = potentialMatches.first { $0.id == matchedUserID }
             matchedUser?.likedUserIDs.insert(currentUserID)
             if let updatedMatchedUser = matchedUser {

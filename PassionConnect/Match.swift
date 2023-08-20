@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Match: Identifiable, CustomStringConvertible {
+struct Match: Identifiable, CustomStringConvertible, Decodable {
     let id: UUID
     let name: String
     let bio: String

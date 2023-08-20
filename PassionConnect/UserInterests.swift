@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct UserInterests: Identifiable, Decodable {
+struct UserInterests: Identifiable, Encodable { // Conform to Encodable
     let id: UUID
-    let userId: String
+    var userId: String
     var interests: [String]
     
     enum CodingKeys: String, CodingKey {
@@ -18,10 +18,16 @@ struct UserInterests: Identifiable, Decodable {
         case interests
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(UUID.self, forKey: .id)
-        userId = try container.decode(String.self, forKey: .userId)
-        interests = try container.decode([String].self, forKey: .interests)
+    init(id: UUID, userId: String, interests: [String]) {
+        self.id = id
+        self.userId = userId
+        self.interests = interests
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(userId, forKey: .userId)
+        try container.encode(interests, forKey: .interests)
     }
 }
