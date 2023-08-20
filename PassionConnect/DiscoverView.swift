@@ -65,7 +65,9 @@ struct DiscoverView: View {
                 })
                 .disabled(randomMatch != nil || currentMatchIndex >= potentialMatches.count)
                 
-                Button(action: findRandomMatch, label: {
+                Button(action: {
+                    findRandomMatch()
+                }, label: {
                     Image(systemName: "shuffle")
                         .resizable()
                         .frame(width: 44, height: 44)
@@ -77,7 +79,7 @@ struct DiscoverView: View {
         }
         .onReceive(viewModel.$removedLikedUserID) { removedUserID in
             if let userID = removedUserID {
-                viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: userID)
+                viewModel.updatePotentialMatchesAfterUnmatch(potentialMatches: &potentialMatches, currentUserID: userID)
             }
         }
         .onAppear {
@@ -93,7 +95,7 @@ struct DiscoverView: View {
             let currentMatch = potentialMatches[currentMatchIndex]
             viewModel.unmatchUser(currentMatch, potentialMatches: &potentialMatches)
         if let currentUserID = viewModel.currentUser?.id {
-            viewModel.updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: currentUserID)
+            viewModel.updatePotentialMatchesAfterUnmatch(potentialMatches: &potentialMatches, currentUserID: currentUserID)
         }
     }
     
@@ -112,10 +114,11 @@ struct DiscoverView: View {
         }
     }
     
-    private func findRandomMatch() {
-        viewModel.findRandomMatch { match in
-            self.randomMatch = match
-        }
+    private func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {
+        var arrayOfPotentialMatches: [Match] = []
+        viewModel.findRandomMatch(completion: { match in
+                self.randomMatch = match
+            }, potentialMatches: &arrayOfPotentialMatches)
     }
     
     private func dislikeCurrentMatch() {

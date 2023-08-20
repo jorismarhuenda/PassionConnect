@@ -39,6 +39,7 @@ struct MatchDetailView: View {
     }
     
     private func unmatchUser() {
-        viewModel.unmatchUser(match)
+        var arrayOfPotentialMatches: [Match] = []
+        viewModel.unmatchUser(match, potentialMatches: &arrayOfPotentialMatches)
     }
 }

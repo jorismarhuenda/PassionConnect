@@ -72,7 +72,7 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    func updatePotentialMatchesAfterUnmatch(_ potentialMatches: inout [Match], currentUserID: UUID) {
+    func updatePotentialMatchesAfterUnmatch(potentialMatches: inout [Match], currentUserID: UUID) {
         if let matchedUserID = removedLikedUserID {
             if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
                 self.likedUserIDs[currentUserID]?.remove(matchedUserID)
@@ -85,7 +85,6 @@ class FirestoreViewModel: ObservableObject {
                     }
                 }
             }
-            
             // Réinitialiser la propriété removedLikedUserID
             removedLikedUserID = nil
         }
@@ -121,7 +120,7 @@ class FirestoreViewModel: ObservableObject {
             }
         
         // Mettre à jour la liste des correspondants potentiels après la suppression
-        updatePotentialMatchesAfterUnmatch(&potentialMatches, currentUserID: currentUserID)
+        updatePotentialMatchesAfterUnmatch(potentialMatches: &potentialMatches, currentUserID: currentUserID)
     }
 
 
@@ -285,6 +284,11 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func searchMatches(preferredAge: Int, maximumDistance: Int, interests: [String], completion: @escaping ([Match]) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+                print("Erreur : impossible de charger les correspondances, l'ID de l'utilisateur actuel est manquant.")
+                completion([])
+                return
+            }
         let query = Firestore.firestore().collection("users")
             .whereField("age", isGreaterThanOrEqualTo: preferredAge)
             .whereField("age", isLessThanOrEqualTo: preferredAge + 5) // On peut ajuster cette plage d'âge selon les préférences
@@ -302,8 +306,19 @@ class FirestoreViewModel: ObservableObject {
             for document in querySnapshot!.documents {
                 do {
                     if let user = try document.data(as: User.self) {
-                        if user.id != currentUser.id && !likedUserIDs.contains(user.id!) {
-                            let match = Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"])
+                        if user.id != self.currentUser?.id && !self.likedUserIDs.contains(where: { $0.key == user.id }) {
+                            let match = Match(
+                                id: user.id,
+                                name: user.name,
+                                bio: user.bio,
+                                interests: user.interests,
+                                profileImageName: user.profileImageName,
+                                email: user.email,
+                                profileImageURL: nil,
+                                userName: "",
+                                age: user.age,
+                                commonInterests: [] // You might need to populate this based on your logic
+                            )
                             matches.append(match)
                         }
                     }

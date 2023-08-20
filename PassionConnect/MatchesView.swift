@@ -41,11 +41,12 @@ struct MatchesView: View {
     }
     
     private func showChatView(for match: Match) {
+        var arrayOfPotentialMatches: [Match] = []
         if let conversation = viewModel.conversations.first(where: { $0.userIDs.contains(match.id) }) {
             selectedConversation = conversation
             isShowingChatView = true
         } else {
-            viewModel.createConversation(with: match) { result in
+            viewModel.createConversation(with: match, completion: { result in
                 switch result {
                 case .success(let conversation):
                     selectedConversation = conversation
@@ -53,7 +54,8 @@ struct MatchesView: View {
                 case .failure(let error):
                     print("Erreur lors de la création de la conversation : \(error.localizedDescription)")
                 }
-            }
+            },
+        potentialMatches: &arrayOfPotentialMatches)
         }
     }
 }

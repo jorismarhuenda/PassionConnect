@@ -34,12 +34,14 @@ struct ChatDetailView: View {
             
             List {
                 ForEach(conversation.messages) { message in
-                    MessageRow(message: message, currentUser: viewModel.currentUser)
+                    if let currentUser = viewModel.currentUser {
+                    MessageRow(message: message, currentUser: currentUser)
                         .contextMenu {
                             Button("Supprimer le message") {
                                 deleteMessage(message, in: conversation)
                             }
                         }
+                    }
                 }
             }
             
