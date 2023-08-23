@@ -19,7 +19,7 @@ struct Match: Identifiable, CustomStringConvertible, Decodable {
     var userName: String
     var age: Int
     var commonInterests: [String]
-    
+    var likedUserIDs: Set<UUID>
     var description: String {
         return """
         Match:
@@ -37,8 +37,8 @@ struct Match: Identifiable, CustomStringConvertible, Decodable {
 extension Match {
     static func testData() -> [Match] {
         return [
-            Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"]),
-            Match(id: UUID(), name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"), userName: "JaneS", age: 28, commonInterests: ["Cooking"])
+            Match(id: UUID(), name: "John Doe", bio: "Nature lover", interests: ["Hiking", "Photography"], profileImageName: "john", email: "john@example.com", profileImageURL: URL(string: "https://example.com/john.jpg"), userName: "JohnD", age: 30, commonInterests: ["Hiking"], likedUserIDs: []),
+            Match(id: UUID(), name: "Jane Smith", bio: "Foodie and traveler", interests: ["Cooking", "Travel"], profileImageName: "jane", email: "jane@example.com", profileImageURL: URL(string: "https://example.com/jane.jpg"), userName: "JaneS", age: 28, commonInterests: ["Cooking"], likedUserIDs: [])
         ]
     }
 }

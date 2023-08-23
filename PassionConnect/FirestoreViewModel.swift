@@ -81,7 +81,7 @@ class FirestoreViewModel: ObservableObject {
                         print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
                     } else {
                         // Mettre à jour la liste des correspondants potentiels après la suppression
-                        self.loadPotentialMatches()
+                        self.loadPotentialMatches(potentialMatches: &potentialMatches)
                     }
                 }
             }
@@ -317,7 +317,8 @@ class FirestoreViewModel: ObservableObject {
                                 profileImageURL: nil,
                                 userName: "",
                                 age: user.age,
-                                commonInterests: [] // You might need to populate this based on your logic
+                                commonInterests: [],
+                                likedUserIDs: [] // You might need to populate this based on your logic
                             )
                             matches.append(match)
                         }
@@ -606,7 +607,7 @@ class FirestoreViewModel: ObservableObject {
             
             var newMatches: [Match] = []
             for document in documents {
-                if let match = try? document.data(as: Match.self), match.id != currentUserID {
+                if let match = try? document.data(as: Match.self), match.id.uuidString != currentUserID {
                     newMatches.append(match)
                 }
             }
@@ -728,13 +729,19 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func sendQuickReply(_ quickReply: String, in conversation: Conversation) {
-        guard let currentUserID = Auth.auth().currentUser?.uid,
-              let otherUserID = conversation.userIDs.first(where: { $0 != currentUserID }) else {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
             print("Erreur : impossible d'envoyer la réponse rapide, informations utilisateur manquantes.")
             return
         }
         
-        let newMessage = ChatMessage(type: .text, senderID: currentUserID, receiverID: otherUserID, text: quickReply, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
+        let otherUserID = conversation.userIDs.first(where: { $0.uuidString != currentUserID })
+        
+        guard let receiverID = otherUserID else {
+            print("Erreur : impossible de trouver l'ID de l'autre utilisateur.")
+            return
+        }
+        
+        let newMessage = ChatMessage(type: .text, senderID: currentUserID, receiverID: receiverID, text: quickReply, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
         
         sendMessage(newMessage, in: conversation)
     }
