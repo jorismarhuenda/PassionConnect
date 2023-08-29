@@ -182,10 +182,10 @@ struct ChatView: View {
                 uploadImageToStorage(imageData: imageData)
             } else {
                 let newMessage = ChatMessage(
-                    type: .text,
+                    type: .image,
                     senderID: self.currentUser.id.uuidString,
                     receiverID: self.otherUser.id.uuidString,
-                    text: self.newMessageText ?? "",
+                    text: "",
                     imageUrl: nil,
                     isRead: false,
                     isConfidential: false,
