@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Conversation: Identifiable, Decodable {
+struct Conversation: Identifiable, Decodable, Encodable {
     var id = UUID()
     var displayName: String // Nom à afficher pour la conversation
     var user: User // Utilisateur avec lequel la conversation a lieu

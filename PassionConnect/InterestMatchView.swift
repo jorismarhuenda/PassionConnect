@@ -55,8 +55,8 @@ struct InterestMatchView: View {
         // Vous pouvez implémenter ici la logique pour charger les correspondances recommandées de votre modèle de données ou de votre API.
         // Pour cet exemple, nous utilisons une liste statique.
         
-        let user1 = UserInterests(userId: "2", interests: ["Travel", "Hiking", "Reading"])
-        let user2 = UserInterests(userId: "3", interests: ["Photography", "Cooking", "Painting"])
+        let user1 = UserInterests(id: UUID(), userId: "2", interests: ["Travel", "Hiking", "Reading"])
+        let user2 = UserInterests(id: UUID(), userId: "3", interests: ["Photography", "Cooking", "Painting"])
         
         return [user1, user2]
     }

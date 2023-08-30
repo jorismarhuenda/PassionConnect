@@ -572,19 +572,15 @@ class FirestoreViewModel: ObservableObject {
         }
         
         // Mettre à jour les correspondants aimés par le correspondant sélectionné
-        if let matchedUserID = randomMatch.id {
-            var matchedUser = potentialMatches.first { $0.id == matchedUserID }
-            matchedUser?.likedUserIDs.insert(currentUserID)
-            if let updatedMatchedUser = matchedUser {
-                updateLikedUserIDs(for: matchedUserID) { error in
-                    if let error = error {
-                        print("Erreur lors de la mise à jour des correspondants aimés du correspondant sélectionné : \(error.localizedDescription)")
-                    }
+        if var matchedUser = potentialMatches.first(where: { $0.id == randomMatch.id }) {
+            matchedUser.likedUserIDs.insert(currentUserID)
+            updateLikedUserIDs(for: randomMatch.id) { error in
+                if let error = error {
+                    print("Erreur lors de la mise à jour des correspondants aimés du correspondant sélectionné : \(error.localizedDescription)")
                 }
-                completion(updatedMatchedUser)
             }
+            completion(matchedUser)
         }
-        
         completion(randomMatch)
     }
     
@@ -681,48 +677,39 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func sendMessage(_ message: ChatMessage, in conversation: Conversation) {
-        guard let conversationID = conversation.id else {
-            print("Erreur : impossible d'envoyer le message, ID de conversation manquant.")
-            return
-        }
-        
+        let conversationID = conversation.id
+        let conversationIDString = conversationID.uuidString
         // Ajouter le message à la conversation dans Firestore
         do {
             var newConversation = conversation
             newConversation.messages.append(message)
-            try db.collection("conversations").document(conversationID).setData(from: newConversation)
+            try db.collection("conversations").document(conversationIDString).setData(from: newConversation)
         } catch {
             print("Erreur lors de l'ajout du message à la conversation : \(error.localizedDescription)")
         }
     }
     
     func deleteMessage(_ message: ChatMessage, in conversation: Conversation) {
-        guard let conversationID = conversation.id else {
-            print("Erreur : impossible de supprimer le message, ID de conversation manquant.")
-            return
-        }
-        
+        let conversationID = conversation.id
+        let conversationIDString = conversationID.uuidString
         // Supprimer le message de la conversation dans Firestore
         do {
             var newConversation = conversation
             newConversation.messages.removeAll { $0.id == message.id }
-            try db.collection("conversations").document(conversationID).setData(from: newConversation)
+            try db.collection("conversations").document(conversationIDString).setData(from: newConversation)
         } catch {
             print("Erreur lors de la suppression du message de la conversation : \(error.localizedDescription)")
         }
     }
     
     func markAsUnread(_ conversation: Conversation) {
-        guard let conversationID = conversation.id else {
-            print("Erreur : impossible de marquer comme non lu, ID de conversation manquant.")
-            return
-        }
-        
+        let conversationID = conversation.id
+        let conversationIDString = conversationID.uuidString
         // Marquer la conversation comme "non lue" dans Firestore
         do {
             var newConversation = conversation
             newConversation.isUnread = true
-            try db.collection("conversations").document(conversationID).setData(from: newConversation)
+            try db.collection("conversations").document(conversationIDString).setData(from: newConversation)
         } catch {
             print("Erreur lors du marquage comme non lu de la conversation : \(error.localizedDescription)")
         }
