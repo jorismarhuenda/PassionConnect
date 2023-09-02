@@ -73,22 +73,70 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
+    func loadUpdatedPotentialMatches(completion: @escaping ([Match]?, Error?) -> Void) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            print("Erreur : impossible de charger les correspondants potentiels, l'ID de l'utilisateur actuel est manquant.")
+            completion(nil, NSError(domain: "YourDomain", code: 404, userInfo: [NSLocalizedDescriptionKey: "Utilisateur introuvable"]))
+            return
+        }
+
+        let potentialMatchesRef = db.collection("potentialMatches").document(currentUserID).collection("matches")
+
+        potentialMatchesRef.getDocuments { snapshot, error in
+            if let error = error {
+                print("Erreur lors du chargement des correspondants potentiels : \(error.localizedDescription)")
+                completion(nil, error)
+                return
+            }
+
+            guard let documents = snapshot?.documents else {
+                print("Aucun correspondant potentiel trouvé.")
+                completion([], nil) // Aucun correspondant potentiel trouvé, renvoyez une liste vide
+                return
+            }
+
+            let potentialMatches = documents.compactMap { document -> Match? in
+                do {
+                    let match = try document.data(as: Match.self)
+                    return match
+                } catch {
+                    print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
+                    return nil
+                }
+            }
+
+            DispatchQueue.main.async {
+                completion(potentialMatches, nil) // Envoyez les correspondants potentiels chargés
+            }
+        }
+    }
+
+    
     func updatePotentialMatchesAfterUnmatch(potentialMatches: inout [Match], currentUserID: UUID) {
         if let matchedUserID = removedLikedUserID {
             if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
                 self.likedUserIDs[currentUserID]?.remove(matchedUserID)
-                updateLikedUserIDs(for: currentUserID) { error in
+                updateLikedUserIDs(for: currentUserID) { [weak self] error in
+                    guard let self = self else { return }
+                    
                     if let error = error {
                         print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
                     } else {
-                        // Mettre à jour la liste des correspondants potentiels après la suppression
-                        var updatedPotentialMatches = potentialMatches
-                        self.loadPotentialMatches(completion: &updatedPotentialMatches)
-                        potentialMatches = updatedPotentialMatches
+                        self.loadUpdatedPotentialMatches { updatedMatches, error in
+                            if let error = error {
+                                print("Erreur lors du chargement des correspondants potentiels : \(error.localizedDescription)")
+                            } else {
+                                if let newMatches = updatedMatches {
+                                    potentialMatches = newMatches
+                                } else {
+                                    print("Aucun correspondant potentiel trouvé.")
+                                }
+                            }
+                        }
                     }
                 }
             }
-            // Réinitialiser la propriété removedLikedUserID
+            // Réinitialisez la propriété removedLikedUserID
             removedLikedUserID = nil
         }
     }
@@ -545,8 +593,6 @@ class FirestoreViewModel: ObservableObject {
             }
         }
     }
-
-    
     
     func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {
         guard let currentUserID = currentUser?.id else {
@@ -754,7 +800,7 @@ class FirestoreViewModel: ObservableObject {
         }
         
         sendMessage(decodedMessage, in: conversation)
+        }
     }
 
-}
 
