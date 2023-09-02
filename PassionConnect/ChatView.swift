@@ -39,6 +39,26 @@ struct ChatMessage: Identifiable, Codable {
         case timestamp
     }
     
+    init(
+            type: MessageType,
+            senderID: String,
+            receiverID: String,
+            text: String = "",
+            imageUrl: String? = nil,
+            isRead: Bool = false,
+            isConfidential: Bool = false,
+            timestamp: Timestamp? = nil
+        ) {
+            self.type = type
+            self.senderID = senderID
+            self.receiverID = receiverID
+            self.text = text
+            self.imageUrl = imageUrl
+            self.isRead = isRead
+            self.isConfidential = isConfidential
+            self.timestamp = timestamp
+        }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
@@ -81,8 +101,6 @@ struct ChatView: View {
     @State var currentUser: User = User(id: UUID(), name: "John Doe", bio: "", email: "", profileImageName: "profile_image_1", fcmToken: nil, age: 0, interests: [], description: "")
     var otherUser: User = User(id: UUID(), name: "Jane Smith", bio: "", email: "", profileImageName: "profile_image_2", fcmToken: nil, age: 0, interests: [], description: "")
     var conversation: Conversation
-    
-    
     
     var body: some View {
         NavigationView {
@@ -182,15 +200,16 @@ struct ChatView: View {
                 uploadImageToStorage(imageData: imageData)
             } else {
                 let newMessage = ChatMessage(
-                    type: .image,
+                    type: .text,
                     senderID: self.currentUser.id.uuidString,
                     receiverID: self.otherUser.id.uuidString,
                     text: "",
-                    imageUrl: nil,
+                    imageUrl: nil as String?,
                     isRead: false,
                     isConfidential: false,
                     timestamp: Timestamp()
                 )
+
                 
                 viewModel.sendMessage(newMessage, in: conversation)
                 

@@ -11,6 +11,7 @@ import FirebaseStorage
 import FirebaseFirestore
 import UserNotifications
 import FirebaseFirestoreSwift
+import Firebase
 
 class FirestoreViewModel: ObservableObject {
     let db = Firestore.firestore()
@@ -81,7 +82,9 @@ class FirestoreViewModel: ObservableObject {
                         print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
                     } else {
                         // Mettre à jour la liste des correspondants potentiels après la suppression
-                        self.loadPotentialMatches(potentialMatches: &potentialMatches)
+                        var updatedPotentialMatches = potentialMatches
+                        self.loadPotentialMatches(completion: &updatedPotentialMatches)
+                        potentialMatches = updatedPotentialMatches
                     }
                 }
             }
@@ -257,9 +260,10 @@ class FirestoreViewModel: ObservableObject {
 
 
     
-    func likeMatch(_ match: Match, completion: @escaping (Error?) -> Void, potentialMatches: inout [Match]) {
+    func likeMatch(_ match: Match, completion: @escaping (Error?, [Match]?) -> Void) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             print("Erreur : impossible de liker le correspondant, l'ID de l'utilisateur actuel est manquant.")
+            completion(NSError(domain: "YourErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "ID de l'utilisateur actuel manquant"]), nil)
             return
         }
         
@@ -273,12 +277,16 @@ class FirestoreViewModel: ObservableObject {
         
         likesRef.addDocument(data: likeData) { error in
             if let error = error {
-                completion(error)
+                completion(error, nil)
             } else {
-                if let indexToRemove = potentialMatches.firstIndex(where: { $0.id == match.id }) {
-                                potentialMatches.remove(at: indexToRemove)
-                            }
-                completion(nil)
+                // Match liké, vous pouvez maintenant mettre à jour la liste de vos correspondants potentiels
+                self.loadPotentialMatches { updatedMatches, error in
+                    if let error = error {
+                        completion(error, nil)
+                    } else {
+                        completion(nil, updatedMatches)
+                    }
+                }
             }
         }
     }
@@ -366,9 +374,10 @@ class FirestoreViewModel: ObservableObject {
 
     
     
-    func loadPotentialMatches(potentialMatches: inout [Match]) {
+    func loadPotentialMatches(completion: @escaping ([Match]?, Error?) -> Void) {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
             print("Erreur : impossible de charger les correspondants potentiels, l'ID de l'utilisateur actuel est manquant.")
+            completion(nil, NSError(domain: "YourErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "ID de l'utilisateur actuel manquant"]))
             return
         }
         
@@ -376,27 +385,26 @@ class FirestoreViewModel: ObservableObject {
         
         potentialMatchesRef.getDocuments { snapshot, error in
             if let error = error {
-                print("Erreur lors du chargement des correspondants potentiels : \(error.localizedDescription)")
+                completion(nil, error)
                 return
             }
             
             guard let documents = snapshot?.documents else {
-                print("Aucun correspondant potentiel trouvé.")
+                completion([], nil) // Aucun correspondant potentiel trouvé.
                 return
             }
-            potentialMatches = documents.compactMap { document -> Match? in
-                        do {
-                            let match = try document.data(as: Match.self)
-                            return match
-                        } catch {
-                            print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
-                            return nil
-                        }
-                    }
             
-            DispatchQueue.main.async {
-                potentialMatches = potentialMatches
+            let potentialMatches = documents.compactMap { document -> Match? in
+                do {
+                    let match = try document.data(as: Match.self)
+                    return match
+                } catch {
+                    print("Erreur lors du décodage du correspondant potentiel : \(error.localizedDescription)")
+                    return nil
+                }
             }
+            
+            completion(potentialMatches, nil)
         }
     }
     
@@ -728,9 +736,25 @@ class FirestoreViewModel: ObservableObject {
             return
         }
         
-        let newMessage = ChatMessage(type: .text, senderID: currentUserID, receiverID: receiverID, text: quickReply, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
+        let newMessage: ChatMessage = ChatMessage(
+            type: .text,
+            senderID: currentUserID,
+            receiverID: receiverID.uuidString,
+            text: quickReply,
+            isRead: false,
+            isConfidential: false,
+            timestamp: Timestamp()
+        )
         
-        sendMessage(newMessage, in: conversation)
+        // Utilisation du décodeur personnalisé pour créer l'instance de ChatMessage
+        guard let data = try? Firestore.Encoder().encode(newMessage),
+              let decodedMessage = try? Firestore.Decoder().decode(ChatMessage.self, from: data) else {
+            print("Erreur : impossible de créer le nouveau message.")
+            return
+        }
+        
+        sendMessage(decodedMessage, in: conversation)
     }
+
 }
 
