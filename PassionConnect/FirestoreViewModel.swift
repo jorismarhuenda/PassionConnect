@@ -116,9 +116,13 @@ class FirestoreViewModel: ObservableObject {
         if let matchedUserID = removedLikedUserID {
             if let matchedUserIndex = potentialMatches.firstIndex(where: { $0.id == matchedUserID }) {
                 self.likedUserIDs[currentUserID]?.remove(matchedUserID)
+
+                // Copiez potentialMatches localement
+                var localPotentialMatches = potentialMatches
+
                 updateLikedUserIDs(for: currentUserID) { [weak self] error in
                     guard let self = self else { return }
-                    
+
                     if let error = error {
                         print("Erreur lors de la mise à jour des correspondants aimés du correspondant : \(error.localizedDescription)")
                     } else {
@@ -127,7 +131,8 @@ class FirestoreViewModel: ObservableObject {
                                 print("Erreur lors du chargement des correspondants potentiels : \(error.localizedDescription)")
                             } else {
                                 if let newMatches = updatedMatches {
-                                    potentialMatches = newMatches
+                                    // Utilisez la copie locale pour mettre à jour potentialMatches
+                                    localPotentialMatches = newMatches
                                 } else {
                                     print("Aucun correspondant potentiel trouvé.")
                                 }
@@ -135,6 +140,9 @@ class FirestoreViewModel: ObservableObject {
                         }
                     }
                 }
+
+                // Réinitialisez potentialMatches avec la copie locale
+                potentialMatches = localPotentialMatches
             }
             // Réinitialisez la propriété removedLikedUserID
             removedLikedUserID = nil

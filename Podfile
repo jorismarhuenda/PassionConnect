@@ -17,6 +17,7 @@ pod 'FirebaseDatabase'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
+pod 'Protobuf', '=3.22.1'
 
   # Pods for PassionConnect
 

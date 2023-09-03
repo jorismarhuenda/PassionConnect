@@ -114,7 +114,7 @@ struct DiscoverView: View {
         }
         
         let currentMatch = potentialMatches[currentMatchIndex]
-        viewModel.likeMatch(currentMatch, completion: { error in
+        viewModel.likeMatch(currentMatch) { error, updatedMatches in
             if let error = error {
                 print("Erreur lors du like du match : \(error.localizedDescription)")
             } else {
@@ -122,7 +122,7 @@ struct DiscoverView: View {
                 // Appeler la fonction suivante pour "liker" le prochain match
                 self.likeCurrentMatch()
             }
-        }, potentialMatches: &potentialMatches)
+        }
     }
     
     private func findRandomMatch(completion: @escaping (Match?) -> Void, potentialMatches: inout [Match]) {

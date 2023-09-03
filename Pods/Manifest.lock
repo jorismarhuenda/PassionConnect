@@ -359,7 +359,7 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
-  - Protobuf (3.23.4)
+  - Protobuf (3.22.1)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -374,6 +374,7 @@ DEPENDENCIES:
   - FirebaseMessaging
   - FirebaseStorage
   - Google-Mobile-Ads-SDK
+  - Protobuf (= 3.22.1)
 
 SPEC REPOS:
   trunk:
@@ -440,8 +441,8 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  Protobuf: c6bc59bbab3d38a71c67f62d7cb7ca8f8ea4eca1
+  Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
 
-PODFILE CHECKSUM: 53e77be0f547da4396cbe196bafc1858e3c635a9
+PODFILE CHECKSUM: d1b5948861bc9a31e63a4ef1f5cdb79e657a8b71
 
 COCOAPODS: 1.11.3

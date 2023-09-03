@@ -88,14 +88,8 @@ struct ChatDetailView: View {
         
         let newMessage = ChatMessage(type: selectedImage == nil ? .text : .image, senderID: viewModel.currentUser.id, receiverID: conversation.otherUserID, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
         
-        viewModel.sendMessage(newMessage, in: conversation) { error in
-            if let error = error {
-                errorMessage = "Erreur lors de l'envoi du message : \(error.localizedDescription)"
-                isShowingErrorAlert = true
-            } else {
+        viewModel.sendMessage(newMessage, in: conversation)
                 newMessageText = ""
-            }
-        }
         
         if let imageData = selectedImageData {
             uploadImageToStorage(imageData: imageData)
@@ -127,23 +121,13 @@ struct ChatDetailView: View {
                     }
                     let imageUrl = downloadURL.absoluteString
                     let newMessage = ChatMessage(type: .image, senderID: viewModel.currentUser.id, receiverID: conversation.otherUserID, text: nil, imageUrl: imageUrl, isRead: false, isConfidential: false, timestamp: Timestamp())
-                    viewModel.sendMessage(newMessage, in: conversation) { error in
-                        if let error = error {
-                            errorMessage = "Erreur lors de l'envoi du message : \(error.localizedDescription)"
-                            isShowingErrorAlert = true
-                        }
-                    }
+                    viewModel.sendMessage(newMessage, in: conversation)
                 }
             }
         }
     }
     
     private func deleteMessage(_ message: ChatMessage, in conversation: Conversation) {
-        viewModel.deleteMessage(message, in: conversation) { error in
-            if let error = error {
-                errorMessage = "Erreur lors de la suppression du message : \(error.localizedDescription)"
-                isShowingErrorAlert = true
-            }
-        }
+        viewModel.deleteMessage(message, in: conversation)
     }
 }
