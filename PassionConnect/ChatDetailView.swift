@@ -61,10 +61,33 @@ struct ChatDetailView: View {
                 })
                 .padding(.trailing, 8)
                 
-                TextField("Saisir un message", text: $newMessageText, onCommit: sendMessage)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Saisir un message", text: $newMessageText, onCommit: {
+                    guard let currentUser = viewModel.currentUser else {
+                        // Gérez le cas où l'utilisateur actuel n'est pas défini
+                        return
+                    }
+                    
+                    let receiverID = conversation.user.id.uuidString
+                    
+                    let newMessage = ChatMessage(type: .text, senderID: currentUser.id.uuidString, receiverID: receiverID, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: nil)
+                    
+                    viewModel.sendMessage(newMessage, in: conversation)
+                })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+
                 
-                Button("Envoyer", action: sendMessage)
+                Button("Envoyer") {
+                    guard let currentUser = viewModel.currentUser else {
+                        // Gérez le cas où l'utilisateur actuel n'est pas défini
+                        return
+                    }
+
+                    let receiverID = conversation.user.id.uuidString
+
+                    let newMessage = ChatMessage(type: .text, senderID: currentUser.id.uuidString, receiverID: receiverID, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: nil)
+
+                    viewModel.sendMessage(newMessage, in: conversation)
+                }
             }
             .padding()
             .sheet(isPresented: $isImagePickerPresented, onDismiss: {
@@ -82,11 +105,21 @@ struct ChatDetailView: View {
     }
     
     private func sendMessage(_ message: ChatMessage, in conversation: Conversation, completion: @escaping (Error?) -> Void) {
+        let senderID = ""
+        let receiverID = conversation.user.id.uuidString
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("images/\(imageName).jpg")
         if newMessageText.isEmpty && selectedImage == nil {
             return
         }
-        
-        let newMessage = ChatMessage(type: selectedImage == nil ? .text : .image, senderID: viewModel.currentUser.id, receiverID: conversation.otherUserID, text: newMessageText, imageUrl: nil, isRead: false, isConfidential: false, timestamp: Timestamp())
+        storageRef.downloadURL { url, error in
+            guard let downloadURL = url else {
+                errorMessage = "Erreur : impossible de récupérer l'URL de téléchargement de l'image."
+                isShowingErrorAlert = true
+                return
+            }
+        let imageUrl = downloadURL.absoluteString
+        let newMessage = ChatMessage(type: .image, senderID: senderID, receiverID: receiverID, text: "", imageUrl: imageUrl, isRead: false, isConfidential: false, timestamp: Timestamp())
         
         viewModel.sendMessage(newMessage, in: conversation)
                 newMessageText = ""
@@ -96,13 +129,12 @@ struct ChatDetailView: View {
             selectedImageData = nil
         }
     }
+}
     
     private func uploadImageToStorage(imageData: Data) {
-        guard let conversationID = conversation.id else {
-            print("Erreur : impossible d'envoyer l'image, ID de conversation manquant.")
-            return
-        }
-        
+        let conversationID = conversation.id
+        let senderID = ""
+        let receiverID = conversation.user.id.uuidString
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("images/\(imageName).jpg")
         
@@ -120,7 +152,7 @@ struct ChatDetailView: View {
                         return
                     }
                     let imageUrl = downloadURL.absoluteString
-                    let newMessage = ChatMessage(type: .image, senderID: viewModel.currentUser.id, receiverID: conversation.otherUserID, text: nil, imageUrl: imageUrl, isRead: false, isConfidential: false, timestamp: Timestamp())
+                    let newMessage = ChatMessage(type: .image, senderID: senderID, receiverID: receiverID, text: "", imageUrl: imageUrl, isRead: false, isConfidential: false, timestamp: Timestamp())
                     viewModel.sendMessage(newMessage, in: conversation)
                 }
             }

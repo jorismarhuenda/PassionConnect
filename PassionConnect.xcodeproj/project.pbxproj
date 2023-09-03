@@ -32,7 +32,6 @@
 		ECACA54C2A7704A4005675B7 /* CHatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54B2A7704A4005675B7 /* CHatListView.swift */; };
 		ECACA54E2A770908005675B7 /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54D2A770908005675B7 /* MatchDetailView.swift */; };
 		ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECACA54F2A770A9B005675B7 /* UserProfileView.swift */; };
-		ECACA5522A784FBB005675B7 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */; };
 		ECB90A6C2A8410C3008D3891 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6B2A8410C3008D3891 /* User.swift */; };
 		ECB90A6E2A857F68008D3891 /* FirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */; };
 		ECB90A702A858112008D3891 /* UserInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A6F2A858112008D3891 /* UserInterests.swift */; };
@@ -42,6 +41,8 @@
 		ECB90A782A87A551008D3891 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A772A87A551008D3891 /* Conversation.swift */; };
 		ECB90A7A2A87A89F008D3891 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A792A87A89F008D3891 /* MessageRow.swift */; };
 		ECB90A7C2A896AB5008D3891 /* MyMessagingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB90A7B2A896AB5008D3891 /* MyMessagingDelegate.swift */; };
+		ECFD32802AA4C0AA001B9E3B /* PassionConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD327F2AA4C0AA001B9E3B /* PassionConnectApp.swift */; };
+		ECFD32842AA4C1F5001B9E3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECFD32832AA4C1F5001B9E3B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,7 +96,6 @@
 		ECACA54B2A7704A4005675B7 /* CHatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHatListView.swift; sourceTree = "<group>"; };
 		ECACA54D2A770908005675B7 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		ECACA54F2A770A9B005675B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
-		ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info-2.plist"; sourceTree = SOURCE_ROOT; };
 		ECB90A6B2A8410C3008D3891 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ECB90A6D2A857F68008D3891 /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
 		ECB90A6F2A858112008D3891 /* UserInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterests.swift; sourceTree = "<group>"; };
@@ -105,6 +105,8 @@
 		ECB90A772A87A551008D3891 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		ECB90A792A87A89F008D3891 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		ECB90A7B2A896AB5008D3891 /* MyMessagingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagingDelegate.swift; sourceTree = "<group>"; };
+		ECFD327F2AA4C0AA001B9E3B /* PassionConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassionConnectApp.swift; sourceTree = "<group>"; };
+		ECFD32832AA4C1F5001B9E3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FD54634DC8BCAA1FDEC7F67E /* Pods-PassionConnectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassionConnectTests.release.xcconfig"; path = "Target Support Files/Pods-PassionConnectTests/Pods-PassionConnectTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 		ECACA5052A756A54005675B7 /* PassionConnect */ = {
 			isa = PBXGroup;
 			children = (
+				ECFD327F2AA4C0AA001B9E3B /* PassionConnectApp.swift */,
 				ECACA5352A756B3C005675B7 /* UserInterestsView.swift */,
 				ECACA54F2A770A9B005675B7 /* UserProfileView.swift */,
 				ECACA5372A756C2F005675B7 /* InterestMatchView.swift */,
@@ -208,10 +211,10 @@
 				ECACA5472A77024F005675B7 /* FacebookLoginView.swift */,
 				ECACA5492A770294005675B7 /* EmailLoginView.swift */,
 				ECACA5082A756A54005675B7 /* ContentView.swift */,
-				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
 				ECACA50F2A756A58005675B7 /* Persistence.swift */,
+				ECACA50A2A756A58005675B7 /* Assets.xcassets */,
 				ECACA5112A756A58005675B7 /* PassionConnect.xcdatamodeld */,
-				ECACA5512A784FBB005675B7 /* GoogleService-Info-2.plist */,
+				ECFD32832AA4C1F5001B9E3B /* GoogleService-Info.plist */,
 				ECACA50C2A756A58005675B7 /* Preview Content */,
 			);
 			path = PassionConnect;
@@ -352,8 +355,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECACA50E2A756A58005675B7 /* Preview Assets.xcassets in Resources */,
+				ECFD32842AA4C1F5001B9E3B /* GoogleService-Info.plist in Resources */,
 				ECACA50B2A756A58005675B7 /* Assets.xcassets in Resources */,
-				ECACA5522A784FBB005675B7 /* GoogleService-Info-2.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECFD32802AA4C0AA001B9E3B /* PassionConnectApp.swift in Sources */,
 				ECB90A782A87A551008D3891 /* Conversation.swift in Sources */,
 				ECACA5462A76FF51005675B7 /* DiscoverView.swift in Sources */,
 				ECACA5502A770A9B005675B7 /* UserProfileView.swift in Sources */,

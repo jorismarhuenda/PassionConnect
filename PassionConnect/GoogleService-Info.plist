@@ -30,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:365630040608:ios:12a73b4bfcd6dc2bd52a45</string>
+	<key>DATABASE_URL</key>
+	<string>https://passionconnect-1066b-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>
